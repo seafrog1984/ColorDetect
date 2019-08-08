@@ -1,8 +1,4 @@
 #include "ColorDetect.h"
-
-
-
-
 #define ROI_BORDER 2
 
 
@@ -208,111 +204,119 @@ void ColorDetect::setArea2()
 }
 
 
-void ColorDetect::CalRGB(Mat &img, int &r, int &g, int &b)
-{
-	Mat channel[3];
-	split(img, channel);
-	imshow("original", img);
-	imshow("B", channel[0]);
-	imshow("G", channel[1]);
-	imshow("R", channel[2]);
-
-	cv::Scalar tempVal;
-	int bgr[3];
-
-	for (int i = 0; i < 3; i++)
-	{
-
-		tempVal = mean(channel[i]);
-
-		bgr[i]= (int)(tempVal.val[0]+0.5);
-	}
-
-	b = bgr[0];
-	g = bgr[1];
-	r = bgr[2];
-
-
-}
-
-void ColorDetect::CalROI(Mat &img, Mat &roi, int sx, int sy, int imgw, int imgh)
-{
-
-	Rect rect1(sx, sy, imgw, imgh);
-	Mat roi1;
-	frame(rect1).copyTo(roi1);
-
-	//imshow("test", roi1);
-	Mat roi_gray;
-	cvtColor(roi1, roi_gray, CV_BGR2GRAY);
-
-	double value = mean(roi_gray)[0] * 0.95;
-
-	Mat seg;
-	cv::threshold(roi_gray, seg, value, 255, THRESH_BINARY_INV);
-
-	//imshow("seg", seg);
-
-	int col_start = 0;
-	for (int col = 0; col < seg.cols; col++)
-	{
-		if (seg.at<uchar>(seg.rows / 2, col) != 0)
-		{
-			col_start = col;
-			break;
-		}
-	}
-	col_start = col_start + ROI_BORDER;
-	int col_end = seg.cols-1;
-	for (int col = seg.cols-1; col >=0; col--)
-	{
-		if (seg.at<uchar>(seg.rows / 2, col) != 0)
-		{
-			col_end = col;
-			break;
-		}
-	}
-	col_end = col_end - ROI_BORDER;
-	int row_start = 0;
-	for (int row = 0; row < seg.rows; row++)
-	{
-		if (seg.at<uchar>(row, col_start) != 0)
-		{
-			row_start = row;
-			break;
-		}
-	}
-	row_start = row_start + ROI_BORDER;
-	int row_end = 0;
-	for (int row = seg.rows-1; row >=0; row--)
-	{
-		if (seg.at<uchar>(row, col_start) != 0)
-		{
-			row_end = row;
-			break;
-		}
-	}
-	row_end = row_end - ROI_BORDER;
-
-	int roi_w = col_end - col_start;
-	int roi_h = row_end - row_start;
-	if (roi_w > 0 && roi_h > 0)
-	{		
-		Rect rect(col_start, row_start, roi_w, roi_h);
-
-		roi1(rect).copyTo(roi);
-	}
-	else
-	{
-		QMessageBox::information(this, "Warning", QString::fromLocal8Bit("区域选择错误"));
-		return;
-	}
-
-}
+//void ColorDetect::CalRGB(Mat &img, int &sx, int &sy, int &imgw, int &imgh, int &r, int &g, int &b)
+//{
+//	Rect rect(sx, sy, imgw, imgh);
+//	Mat roi;
+//	img(rect).copyTo(roi);
+//
+//
+//	Mat channel[3];
+//	split(roi, channel);
+//	imshow("original", img);
+//	imshow("B", channel[0]);
+//	imshow("G", channel[1]);
+//	imshow("R", channel[2]);
+//
+//	cv::Scalar tempVal;
+//	int bgr[3];
+//
+//	for (int i = 0; i < 3; i++)
+//	{
+//
+//		tempVal = mean(channel[i]);
+//
+//		bgr[i] = (int)(tempVal.val[0] + 0.5);
+//	}
+//
+//	b = bgr[0];
+//	g = bgr[1];
+//	r = bgr[2];
+//}
+//
+//int ColorDetect::CalROI(Mat &img, int &sx, int &sy, int &imgw, int &imgh, int roi_border)
+//{
+//
+//	Rect rect1(sx, sy, imgw, imgh);
+//	Mat roi1;
+//	img(rect1).copyTo(roi1);
+//
+//	//imshow("test", roi1);
+//	Mat roi_gray;
+//	cvtColor(roi1, roi_gray, CV_BGR2GRAY);
+//
+//	double value = mean(roi_gray)[0] * 0.95;
+//
+//	Mat seg;
+//	cv::threshold(roi_gray, seg, value, 255, THRESH_BINARY_INV);
+//
+//	//imshow("seg", seg);
+//
+//	int col_start = 0;
+//	for (int col = 0; col < seg.cols; col++)
+//	{
+//		if (seg.at<uchar>(seg.rows / 2, col) != 0)
+//		{
+//			col_start = col;
+//			break;
+//		}
+//	}
+//	col_start = col_start + roi_border;
+//	int col_end = seg.cols - 1;
+//	for (int col = seg.cols - 1; col >= 0; col--)
+//	{
+//		if (seg.at<uchar>(seg.rows / 2, col) != 0)
+//		{
+//			col_end = col;
+//			break;
+//		}
+//	}
+//	col_end = col_end - roi_border;
+//	int row_start = 0;
+//	for (int row = 0; row < seg.rows; row++)
+//	{
+//		if (seg.at<uchar>(row, col_start) != 0)
+//		{
+//			row_start = row;
+//			break;
+//		}
+//	}
+//	row_start = row_start + roi_border;
+//	int row_end = 0;
+//	for (int row = seg.rows - 1; row >= 0; row--)
+//	{
+//		if (seg.at<uchar>(row, col_start) != 0)
+//		{
+//			row_end = row;
+//			break;
+//		}
+//	}
+//	row_end = row_end - roi_border;
+//
+//	int roi_w = col_end - col_start;
+//	int roi_h = row_end - row_start;
+//	if (roi_w > 0 && roi_h > 0)
+//	{
+//		//Rect rect(col_start, row_start, roi_w, roi_h);
+//
+//		sx = sx + col_start;
+//		sy = sy + row_start;
+//		imgw = roi_w;
+//		imgh = roi_h;
+//
+//	}
+//	else
+//	{
+//		return -1;
+//	}
+//
+//	return 0;
+//
+//}
 
 void ColorDetect::updateShape()
 {
-	int sx, sy, ex, ey,imgw,imgh;
+	int sx, sy, ex, ey,w,h;
 	if (g_sel_flag == 2)
 	{
 		sx = ui.label->p5.x();
@@ -320,32 +324,39 @@ void ColorDetect::updateShape()
 		ex = ui.label->p6.x();
 		ey = ui.label->p6.y();
 
-		imgw = ex - sx;
-		imgh = ey - sy;
+		w = ex - sx;
+		h = ey - sy;
 
 		Mat roi;
 
-		CalROI(frame, roi, sx, sy, imgw, imgh);
+		int ret=CalROI(frame, sx, sy, w, h,ROI_BORDER);
 
-		if (!roi.empty())
+		if (ret == -1)
 		{
-			imshow("roi", roi);
-
-			int r, g, b;
-
-			CalRGB(roi, r, g, b);
-
-			ui.color_b->setText(QString::number(b));
-			ui.color_g->setText(QString::number(g));
-			ui.color_r->setText(QString::number(r));
-
-
-			ui.label_8->setAutoFillBackground(true);
-			QPalette p = ui.label_8->palette();
-			p.setColor(QPalette::Window, QColor(r, g, b));
-			ui.label_8->setPalette(p);
-			ui.label_8->update();
+			QMessageBox::information(NULL, "Title", QString::fromLocal8Bit("区域选择不正确！"));
+			return;
 		}
+
+		ui.label->p5.setX(sx);
+		ui.label->p5.setY(sy);
+		ui.label->p6.setX(sx + w);
+		ui.label->p6.setY(sy + h);
+
+		int r, g, b;
+
+		CalRGB(frame, sx, sy, w, h, r, g, b);
+
+		ui.color_b->setText(QString::number(b));
+		ui.color_g->setText(QString::number(g));
+		ui.color_r->setText(QString::number(r));
+
+
+		ui.label_8->setAutoFillBackground(true);
+		QPalette p = ui.label_8->palette();
+		p.setColor(QPalette::Window, QColor(r, g, b));
+		ui.label_8->setPalette(p);
+		ui.label_8->update();
+
 
 	}
 	else
@@ -362,6 +373,27 @@ void ColorDetect::updateShape()
 			ui.area1_w->setText(QString::number(ex - sx));
 			ui.area1_h->setText(QString::number(ey - sy));
 
+			w = ex - sx;
+			h = ey - sy;
+			int ret=CalROI(frame, sx, sy, w, h, ROI_BORDER);
+
+			if (ret == -1)
+			{
+				QMessageBox::information(NULL, "Title", QString::fromLocal8Bit("区域选择不正确！"));
+				return;
+			}
+
+			ui.label->p1.setX(sx);
+			ui.label->p1.setY(sy);
+			ui.label->p2.setX(sx + w);
+			ui.label->p2.setY(sy + h);
+			ui.label->str1 = QString::fromLocal8Bit("区域1");
+
+			ui.area1_sx->setText(QString::number(sx));
+			ui.area1_sy->setText(QString::number(sy));
+			ui.area1_w->setText(QString::number(w));
+			ui.area1_h->setText(QString::number(h));
+
 
 		}
 		else
@@ -376,23 +408,30 @@ void ColorDetect::updateShape()
 			ui.area2_w->setText(QString::number(ex - sx));
 			ui.area2_h->setText(QString::number(ey - sy));
 
+			w = ex - sx;
+			h = ey - sy;
+			int ret=CalROI(frame, sx, sy, w, h, ROI_BORDER);
+			if (ret == -1)
+			{
+				QMessageBox::information(NULL, "Title", QString::fromLocal8Bit("区域选择不正确！"));
+				return;
+			}
+
+			ui.label->p3.setX(sx);
+			ui.label->p3.setY(sy);
+			ui.label->p4.setX(sx + w);
+			ui.label->p4.setY(sy + h);
+
+			ui.label->str2 = QString::fromLocal8Bit("区域2");
+
+			ui.area2_sx->setText(QString::number(sx));
+			ui.area2_sy->setText(QString::number(sy));
+			ui.area2_w->setText(QString::number(w));
+			ui.area2_h->setText(QString::number(h));
+
 		}
 
-		imgw = ex - sx;
-		imgh = ey - sy;
-
-		Mat roi;
-
-		CalROI(frame, roi, sx, sy, imgw, imgh);
-
-		if (!roi.empty())
-		{
-			imshow("roi", roi);
-		}
 	}
-	
-
-
 }
 
 void ColorDetect::ReadFrame()

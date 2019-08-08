@@ -9,7 +9,7 @@
 #include <QFileDialog>
 #include <fstream>
 #include <iostream> 
-
+#include "ColorDll.h"
 
 
 
@@ -44,7 +44,7 @@ private slots:
 	void setColor();
 
 public:
-	void CalROI(Mat &img, Mat &roi, int sx, int sy, int imgw, int imgh);
-	void CalRGB(Mat &img, int &r, int &g, int &b);
+	//int CalROI(Mat &img, int &sx, int &sy, int &imgw, int &imgh, int roi_border);
+	//void CalRGB(Mat &img, int &sx, int &sy, int &imgw, int &imgh, int &r, int &g, int &b);
 
 };
