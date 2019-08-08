@@ -83,5 +83,8 @@
     <ClInclude Include="GeneratedFiles\ui_ColorDetect.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="ColorDll.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_ColorDetect_t {
-    QByteArrayData data[12];
-    char stringdata0[118];
+    QByteArrayData data[16];
+    char stringdata0[144];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,23 +30,28 @@ struct qt_meta_stringdata_ColorDetect_t {
 static const qt_meta_stringdata_ColorDetect_t qt_meta_stringdata_ColorDetect = {
     {
 QT_MOC_LITERAL(0, 0, 11), // "ColorDetect"
-QT_MOC_LITERAL(1, 12, 9), // "ReadFrame"
-QT_MOC_LITERAL(2, 22, 0), // ""
-QT_MOC_LITERAL(3, 23, 17), // "OpenCameraClicked"
-QT_MOC_LITERAL(4, 41, 18), // "CloseCameraClicked"
-QT_MOC_LITERAL(5, 60, 11), // "updateShape"
-QT_MOC_LITERAL(6, 72, 4), // "sel1"
-QT_MOC_LITERAL(7, 77, 4), // "sel2"
-QT_MOC_LITERAL(8, 82, 8), // "selColor"
-QT_MOC_LITERAL(9, 91, 8), // "setArea1"
-QT_MOC_LITERAL(10, 100, 8), // "setArea2"
-QT_MOC_LITERAL(11, 109, 8) // "setColor"
+QT_MOC_LITERAL(1, 12, 6), // "detect"
+QT_MOC_LITERAL(2, 19, 0), // ""
+QT_MOC_LITERAL(3, 20, 9), // "ReadFrame"
+QT_MOC_LITERAL(4, 30, 17), // "OpenCameraClicked"
+QT_MOC_LITERAL(5, 48, 18), // "CloseCameraClicked"
+QT_MOC_LITERAL(6, 67, 5), // "start"
+QT_MOC_LITERAL(7, 73, 4), // "stop"
+QT_MOC_LITERAL(8, 78, 11), // "updateShape"
+QT_MOC_LITERAL(9, 90, 4), // "sel1"
+QT_MOC_LITERAL(10, 95, 4), // "sel2"
+QT_MOC_LITERAL(11, 100, 8), // "selColor"
+QT_MOC_LITERAL(12, 109, 8), // "setArea1"
+QT_MOC_LITERAL(13, 118, 8), // "setArea2"
+QT_MOC_LITERAL(14, 127, 8), // "setColor"
+QT_MOC_LITERAL(15, 136, 7) // "setTime"
 
     },
-    "ColorDetect\0ReadFrame\0\0OpenCameraClicked\0"
-    "CloseCameraClicked\0updateShape\0sel1\0"
-    "sel2\0selColor\0setArea1\0setArea2\0"
-    "setColor"
+    "ColorDetect\0detect\0\0ReadFrame\0"
+    "OpenCameraClicked\0CloseCameraClicked\0"
+    "start\0stop\0updateShape\0sel1\0sel2\0"
+    "selColor\0setArea1\0setArea2\0setColor\0"
+    "setTime"
 };
 #undef QT_MOC_LITERAL
 
@@ -56,7 +61,7 @@ static const uint qt_meta_data_ColorDetect[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      10,   14, // methods
+      14,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -64,18 +69,26 @@ static const uint qt_meta_data_ColorDetect[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   64,    2, 0x08 /* Private */,
-       3,    0,   65,    2, 0x08 /* Private */,
-       4,    0,   66,    2, 0x08 /* Private */,
-       5,    0,   67,    2, 0x08 /* Private */,
-       6,    0,   68,    2, 0x08 /* Private */,
-       7,    0,   69,    2, 0x08 /* Private */,
-       8,    0,   70,    2, 0x08 /* Private */,
-       9,    0,   71,    2, 0x08 /* Private */,
-      10,    0,   72,    2, 0x08 /* Private */,
-      11,    0,   73,    2, 0x08 /* Private */,
+       1,    0,   84,    2, 0x08 /* Private */,
+       3,    0,   85,    2, 0x08 /* Private */,
+       4,    0,   86,    2, 0x08 /* Private */,
+       5,    0,   87,    2, 0x08 /* Private */,
+       6,    0,   88,    2, 0x08 /* Private */,
+       7,    0,   89,    2, 0x08 /* Private */,
+       8,    0,   90,    2, 0x08 /* Private */,
+       9,    0,   91,    2, 0x08 /* Private */,
+      10,    0,   92,    2, 0x08 /* Private */,
+      11,    0,   93,    2, 0x08 /* Private */,
+      12,    0,   94,    2, 0x08 /* Private */,
+      13,    0,   95,    2, 0x08 /* Private */,
+      14,    0,   96,    2, 0x08 /* Private */,
+      15,    0,   97,    2, 0x08 /* Private */,
 
  // slots: parameters
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -96,16 +109,20 @@ void ColorDetect::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         ColorDetect *_t = static_cast<ColorDetect *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->ReadFrame(); break;
-        case 1: _t->OpenCameraClicked(); break;
-        case 2: _t->CloseCameraClicked(); break;
-        case 3: _t->updateShape(); break;
-        case 4: _t->sel1(); break;
-        case 5: _t->sel2(); break;
-        case 6: _t->selColor(); break;
-        case 7: _t->setArea1(); break;
-        case 8: _t->setArea2(); break;
-        case 9: _t->setColor(); break;
+        case 0: _t->detect(); break;
+        case 1: _t->ReadFrame(); break;
+        case 2: _t->OpenCameraClicked(); break;
+        case 3: _t->CloseCameraClicked(); break;
+        case 4: _t->start(); break;
+        case 5: _t->stop(); break;
+        case 6: _t->updateShape(); break;
+        case 7: _t->sel1(); break;
+        case 8: _t->sel2(); break;
+        case 9: _t->selColor(); break;
+        case 10: _t->setArea1(); break;
+        case 11: _t->setArea2(); break;
+        case 12: _t->setColor(); break;
+        case 13: _t->setTime(); break;
         default: ;
         }
     }
@@ -137,13 +154,13 @@ int ColorDetect::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 10)
+        if (_id < 14)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 10;
+        _id -= 14;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 10)
+        if (_id < 14)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 10;
+        _id -= 14;
     }
     return _id;
 }

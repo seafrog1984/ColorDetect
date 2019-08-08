@@ -10,8 +10,7 @@
 #include <fstream>
 #include <iostream> 
 #include "ColorDll.h"
-
-
+#include <QDateTime>
 
 using namespace cv;
 
@@ -24,27 +23,43 @@ public:
 
 	VideoCapture capture;
 	QTimer *timer;
+	QTimer *detect_timer;
 	Mat frame;
+
+	int m_sx1, m_sy1, m_w1, m_h1;
+	int m_sx2, m_sy2, m_w2, m_h2;
+
+	int m_time_inter;//检测间隔时间min
+	int m_time_total;//检测终止时间min
+	int m_cur_time;//距离开始的时间min
+	QString m_data_path;//数据保存目录
+	QString m_data_file;//数据文件
+
+	int m_dst_r, m_dst_g, m_dst_b;//目标颜色
+	int m_th;//颜色判断阈值
 
 private:
 	Ui::ColorDetectClass ui;
 
 private slots:
+
+	void detect();//检测函数
 	void ReadFrame();
-	void OpenCameraClicked();
-	void CloseCameraClicked();
-	void updateShape();
+	void OpenCameraClicked();//打开相机
+	void CloseCameraClicked();//关闭相机
+	void start();//开始检测
+	void stop();//停止检测
 
-	void sel1();
-	void sel2();
-	void selColor();
+	void updateShape();//更新区域
 
-	void setArea1();
-	void setArea2();
-	void setColor();
+	void sel1();//选择区域1
+	void sel2();//选择区域2
+	void selColor();//选择颜色区域
 
-public:
-	//int CalROI(Mat &img, int &sx, int &sy, int &imgw, int &imgh, int roi_border);
-	//void CalRGB(Mat &img, int &sx, int &sy, int &imgw, int &imgh, int &r, int &g, int &b);
+	void setArea1();//设置区域1
+	void setArea2();//设置区域2
+	void setColor();//设置终止颜色
+
+	void setTime();//设置时间
 
 };
