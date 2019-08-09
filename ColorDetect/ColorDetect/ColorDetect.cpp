@@ -1,13 +1,21 @@
 #include "ColorDetect.h"
 
 #define ROI_BORDER 2
-
+#define CHECK_NUM 15
 
 int g_cur_shape = 0;
 int g_shapeNum=1;
 int g_sel1_done = 0;
 int g_sel_flag = 0;//0：不选择区域；1：选择检测区域；2：选择颜色区域
 int g_start_flag = 0;
+
+int g_check_area = 0;//检测到终止颜色的区域：0-未检测到；1-区域1；2-区域2
+int g_check_flag = 0;//检测到终止颜色的标志：0-超时；1-检测到；2-手动停止
+
+int g_check_num = 0;//确认颜色检测的次数
+int g_sucess_count = 0;//确认颜色检测成功的次数
+
+QString g_data_path;
 
 
 using namespace std;
@@ -20,14 +28,17 @@ ColorDetect::ColorDetect(QWidget *parent)
 
 	timer = new QTimer(this);
 	detect_timer = new QTimer(this);
+	check_timer = new QTimer(this);
 	
 	connect(timer, SIGNAL(timeout()), this, SLOT(ReadFrame()));
 	connect(detect_timer, SIGNAL(timeout()), this, SLOT(detect()));
+	connect(check_timer, SIGNAL(timeout()), this, SLOT(check()));
 
 	connect(ui.btn_open_cam, SIGNAL(clicked()), this, SLOT(OpenCameraClicked()));//打开摄像头
 	connect(ui.btn_close_cam, SIGNAL(clicked()), this, SLOT(CloseCameraClicked()));//关闭摄像头
 	connect(ui.btn_start, SIGNAL(clicked()), this, SLOT(start()));//打开摄像头
 	connect(ui.btn_stop, SIGNAL(clicked()), this, SLOT(stop()));//关闭摄像头
+	connect(ui.btn_search, SIGNAL(clicked()), this, SLOT(search()));//关闭摄像头
 
 	connect(ui.label, SIGNAL(updateShape()), this, SLOT(updateShape()));//更新选择区域
 
@@ -41,7 +52,7 @@ ColorDetect::ColorDetect(QWidget *parent)
 
 	connect(ui.btn_set_time, SIGNAL(clicked()), this, SLOT(setTime()));//设置时间
 
-	capture.open("D:\\1.avi");
+	//capture.open("D:\\1.avi");
 
 	QDir dir;
 	m_data_path = dir.currentPath() + "//Data//";
@@ -152,14 +163,95 @@ ColorDetect::ColorDetect(QWidget *parent)
 
 }
 
+
+void ColorDetect::search()
+{
+	g_data_path=m_data_path;
+	dlg = new DataDlg;
+	dlg->show();
+
+}
+
+void ColorDetect::check()
+{
+
+	for (g_check_num = 0, g_sucess_count = 0; g_check_num < CHECK_NUM; g_check_num++)
+	{
+		if (g_check_area == 1)
+		{
+			int r, g, b;
+			if (!frame.empty())
+			{
+				CalRGB(frame, m_sx1, m_sy1, m_w1, m_h1, r, g, b);
+			}
+			else
+			{
+				QMessageBox::information(NULL, "Title", QString::fromLocal8Bit("图像为空！"));
+				return;
+			}
+
+			ui.area1_b->setText(QString::number(b));
+			ui.area1_g->setText(QString::number(g));
+			ui.area1_r->setText(QString::number(r));
+
+
+			ui.label_area1->setAutoFillBackground(true);
+			QPalette p = ui.label_area1->palette();
+			p.setColor(QPalette::Window, QColor(r, g, b));
+			ui.label_area1->setPalette(p);
+			ui.label_area1->update();
+
+			if (CompareRGB(r, g, b, m_dst_r, m_dst_g, m_dst_b, m_th) == 0)
+			{
+				g_sucess_count++;
+			}
+		}
+		else if (g_check_area == 2)
+		{
+			int r2 = 0, g2 = 0, b2 = 0;
+
+			if (!frame.empty())
+			{
+				CalRGB(frame, m_sx2, m_sy2, m_w2, m_h2, r2, g2, b2);
+			}
+			else
+			{
+				QMessageBox::information(NULL, "Title", QString::fromLocal8Bit("图像为空！"));
+				return;
+			}
+
+			ui.area2_b->setText(QString::number(b2));
+			ui.area2_g->setText(QString::number(g2));
+			ui.area2_r->setText(QString::number(r2));
+
+
+			ui.label_area2->setAutoFillBackground(true);
+			QPalette p = ui.label_area2->palette();
+			p.setColor(QPalette::Window, QColor(r2, g2, b2));
+			ui.label_area2->setPalette(p);
+			ui.label_area2->update();
+
+			if (CompareRGB(r2, g2, b2, m_dst_r, m_dst_g, m_dst_b, m_th) == 0)
+			{
+				g_sucess_count++;
+			}
+		}
+
+		Sleep(1000);
+
+	}
+
+}
+
+
 void ColorDetect::detect()
 {
 	if (g_start_flag)
 	{
 		QDateTime current_time = QDateTime::currentDateTime();
-		QString timestr = current_time.toString("yyyy-MM-dd-hh-mm"); //设置显示的格式
-		m_data_file = m_data_path + timestr + ".dat";
-		
+		QString timestr = current_time.toString("yyyy-MM-dd-hh-mm-ss"); //设置显示的格式
+		m_data_file = m_data_path + timestr + ".txt";
+		m_result_file = m_data_path + timestr + ".dat";
 		g_start_flag = 0;
 
 		fstream fout(m_data_file.toStdString(), ios::app);
@@ -170,6 +262,7 @@ void ColorDetect::detect()
 
 		fout << g_shapeNum << endl;
 		fout.close();
+		
 	}
 
 	fstream fout(m_data_file.toStdString(), ios::app);
@@ -233,28 +326,70 @@ void ColorDetect::detect()
 
 	if (CompareRGB(r, g, b, m_dst_r, m_dst_g, m_dst_b, m_th) == 0)
 	{
-		QMessageBox::information(NULL, "Title", QString::fromLocal8Bit("区域1检测到终止颜色！"));
+		g_check_area = 1;
 
-		fout <<m_cur_time << ' ' << 1 << ' '<<1<<endl;
-		fout.close();
-		detect_timer->stop();
-		return;
+		check();
+
+		if (g_sucess_count >= g_check_num / 2)
+		{
+			QMessageBox::information(NULL, "Title", QString::fromLocal8Bit("区域1检测到终止颜色！用时(min)：")+QString::number(m_cur_time));
+			fstream fout2(m_result_file.toStdString(), ios::app);
+			if (fout2.fail())
+			{
+				QMessageBox::information(NULL, "Title", "open file fail:" + m_data_file);
+			}
+			fout2 << m_cur_time << ' ' << g_check_flag << ' ' << g_check_area << endl;
+			fout2.close();
+
+			g_check_flag = 1;
+			fout << m_cur_time << ' ' << g_check_flag << ' ' << g_check_area << endl;
+			fout.close();
+
+			detect_timer->stop();
+			return;
+		}
+		
 	}
-	if (CompareRGB(r2, g2, b2, m_dst_r, m_dst_g, m_dst_b, m_th) == 0)
+	else if (CompareRGB(r2, g2, b2, m_dst_r, m_dst_g, m_dst_b, m_th) == 0)
 	{
-		QMessageBox::information(NULL, "Title", QString::fromLocal8Bit("区域2检测到终止颜色！"));
+		QMessageBox::information(NULL, "Title", QString::fromLocal8Bit("区域2检测到终止颜色！用时(min)：") + QString::number(m_cur_time));
+		g_check_area = 2;
 
-		fout << m_cur_time << ' ' << 1 << ' ' << 2 << endl;
-		fout.close();
-		detect_timer->stop();
-		return;
+		check();
+
+		if (g_sucess_count >= g_check_num / 2)
+		{
+			fstream fout2(m_result_file.toStdString(), ios::app);
+			if (fout2.fail())
+			{
+				QMessageBox::information(NULL, "Title", "open file fail:" + m_data_file);
+			}
+			fout2 << m_cur_time << ' ' << g_check_flag << ' ' << g_check_area << endl;
+			fout2.close();
+
+			g_check_flag = 1;
+			fout << m_cur_time << ' ' << g_check_flag << ' ' << g_check_area << endl;
+			fout.close();
+			detect_timer->stop();
+			return;
+		}
 	}
-
-	if (m_cur_time >= m_time_total)
+	else if (m_cur_time >= m_time_total)
 	{
 		QMessageBox::information(NULL, "Title", QString::fromLocal8Bit("终止时间到！"));
+		g_check_flag = 0;
+		g_check_area = 0;
 
-		fout << m_cur_time << ' ' << 0 << ' ' << 0 << endl;//总时间；是否检测到目标颜色（0-未检测到；1-检测到；2-手动停止）；检测到颜色区域（0-未检测到；1-区域1；2-区域2）
+		fstream fout2(m_result_file.toStdString(), ios::app);
+		if (fout2.fail())
+		{
+			QMessageBox::information(NULL, "Title", "open file fail:" + m_data_file);
+		}
+		fout2 << m_cur_time << ' ' << g_check_flag << ' ' << g_check_area << endl;
+		fout2.close();
+
+
+		fout << m_cur_time << ' ' << g_check_flag << ' ' << g_check_area << endl;//总时间；是否检测到目标颜色（0-未检测到；1-检测到；2-手动停止）；检测到颜色区域（0-未检测到；1-区域1；2-区域2）
 		fout.close();
 		detect_timer->stop();
 		return;
@@ -542,17 +677,17 @@ void ColorDetect::ReadFrame()
 void ColorDetect::OpenCameraClicked()
 {
 	//capture.open(0);//打开摄像头
-	//QString filename;
-	//filename = QFileDialog::getOpenFileName(this, tr("Select avi"), "", tr("Data (*.avi)"));
-	//if (filename.isEmpty())
-	//{
-	//	return;
-	//}
-	//char*  path;
-	//QByteArray t = filename.toLatin1(); // must
-	//path = t.data();
+	QString filename;
+	filename = QFileDialog::getOpenFileName(this, tr("Select avi"), "", tr("Data (*.avi)"));
+	if (filename.isEmpty())
+	{
+		return;
+	}
+	char*  path;
+	QByteArray t = filename.toLatin1(); // must
+	path = t.data();
 
-	//capture.open(path);
+	capture.open(path);
 	
 	timer->start(25);//开启定时器，一次25ms
 }
@@ -585,8 +720,18 @@ void ColorDetect::stop()
 	}
 
 	QMessageBox::information(NULL, "Title", QString::fromLocal8Bit("手动停止检测！"));
+	g_check_flag = 2;
+	g_check_area = 0;
 
-	fout << m_cur_time << ' ' << 2 << ' ' << 0 << endl;
+	fstream fout2(m_result_file.toStdString(), ios::app);
+	if (fout2.fail())
+	{
+		QMessageBox::information(NULL, "Title", "open file fail:" + m_data_file);
+	}
+	fout2 << m_cur_time << ' ' << g_check_flag << ' ' << g_check_area << endl;
+	fout2.close();
+
+	fout << m_cur_time << ' ' << g_check_flag << ' ' << g_check_area << endl;;
 	fout.close();
 
 

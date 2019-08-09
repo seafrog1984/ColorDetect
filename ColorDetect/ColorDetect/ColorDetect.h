@@ -11,6 +11,8 @@
 #include <iostream> 
 #include "ColorDll.h"
 #include <QDateTime>
+#include <windows.h>
+#include "DataDlg.h"
 
 using namespace cv;
 
@@ -24,6 +26,7 @@ public:
 	VideoCapture capture;
 	QTimer *timer;
 	QTimer *detect_timer;
+	QTimer *check_timer;
 	Mat frame;
 
 	int m_sx1, m_sy1, m_w1, m_h1;
@@ -34,9 +37,12 @@ public:
 	int m_cur_time;//距离开始的时间min
 	QString m_data_path;//数据保存目录
 	QString m_data_file;//数据文件
+	QString m_result_file;//结果文件
 
 	int m_dst_r, m_dst_g, m_dst_b;//目标颜色
 	int m_th;//颜色判断阈值
+
+	DataDlg *dlg;
 
 private:
 	Ui::ColorDetectClass ui;
@@ -61,5 +67,10 @@ private slots:
 	void setColor();//设置终止颜色
 
 	void setTime();//设置时间
+
+	void search();//查询
+
+public:
+	void check();//确认检测函数
 
 };
