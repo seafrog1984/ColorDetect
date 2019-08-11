@@ -2,6 +2,9 @@
 
 #define ROI_BORDER 2
 #define CHECK_NUM 15
+#define IMAGE_WIDTH 640
+#define IMAGE_HEIGHT 480
+
 
 int g_cur_shape = 0;
 int g_shapeNum=1;
@@ -18,6 +21,8 @@ int g_sucess_count = 0;//确认颜色检测成功的次数
 QString g_data_path;
 
 
+
+
 using namespace std;
 using namespace cv;
 
@@ -28,11 +33,11 @@ ColorDetect::ColorDetect(QWidget *parent)
 
 	timer = new QTimer(this);
 	detect_timer = new QTimer(this);
-	check_timer = new QTimer(this);
+
 	
 	connect(timer, SIGNAL(timeout()), this, SLOT(ReadFrame()));
 	connect(detect_timer, SIGNAL(timeout()), this, SLOT(detect()));
-	connect(check_timer, SIGNAL(timeout()), this, SLOT(check()));
+
 
 	connect(ui.btn_open_cam, SIGNAL(clicked()), this, SLOT(OpenCameraClicked()));//打开摄像头
 	connect(ui.btn_close_cam, SIGNAL(clicked()), this, SLOT(CloseCameraClicked()));//关闭摄像头
@@ -159,9 +164,20 @@ ColorDetect::ColorDetect(QWidget *parent)
 
 	//timer->start(25);//开启定时器，一次25ms
 
-
+	MVInitLib();
 
 }
+
+
+ColorDetect::~ColorDetect()
+{
+	if (m_hCam != NULL)
+	{
+		MVCloseCam(m_hCam);
+	}
+	MVTerminateLib();
+}
+
 
 
 void ColorDetect::search()
@@ -673,32 +689,109 @@ void ColorDetect::ReadFrame()
 	ui.label->setPixmap(QPixmap::fromImage(image));
 }
 
+int __stdcall StreamCB(MV_IMAGE_INFO *pInfo, ULONG_PTR nUserVal)
+{
+	ColorDetect *pDlg = (ColorDetect *)nUserVal;
+	return (pDlg->OnStreamCB(pInfo));
+}
+
+int ColorDetect::OnStreamCB(MV_IMAGE_INFO *pInfo)
+{
+
+
+	MVInfo2Image(m_hCam, pInfo, &m_image);
+	int w = m_image.GetWidth();
+	int h = m_image.GetHeight();
+
+	MVBayerToBGR(m_hCam, pInfo->pImageBuffer, m_cvSrc.data, w * 3, w, h, m_PixelFormat);
+
+	cv::resize(m_cvSrc, frame, Size(IMAGE_WIDTH, IMAGE_HEIGHT));
+
+	QImage image = QImage((const uchar*)frame.data, frame.cols, frame.rows, QImage::Format_RGB888).rgbSwapped();
+	ui.label->setPixmap(QPixmap::fromImage(image));
+
+	//namedWindow("test");
+	//imshow("test", m_cvSrc);
+
+	/*int displayScale = 2;
+	int wImage = m_image.GetWidth() / displayScale;
+	int hImage = m_image.GetHeight() / displayScale;
+	QImage tImage = qt_pixmapFromWinHBITMAP(m_image.GetHBitmap()).scaled(wImage, hImage, Qt::KeepAspectRatio).toImage();
+	ui.label->setPixmap(QPixmap::fromImage(tImage));*/
+
+	return 0;
+}
+
 //打开摄像头
 void ColorDetect::OpenCameraClicked()
 {
-	//capture.open(0);//打开摄像头
-	QString filename;
-	filename = QFileDialog::getOpenFileName(this, tr("Select avi"), "", tr("Data (*.avi)"));
-	if (filename.isEmpty())
+	////capture.open(0);//打开摄像头
+	//QString filename;
+	//filename = QFileDialog::getOpenFileName(this, tr("Select avi"), "", tr("Data (*.avi)"));
+	//if (filename.isEmpty())
+	//{
+	//	return;
+	//}
+	//char*  path;
+	//QByteArray t = filename.toLatin1(); // must
+	//path = t.data();
+
+	//capture.open(path);
+	//
+	//timer->start(25);//开启定时器，一次25ms
+
+	int nCams = 0;
+	MVGetNumOfCameras(&nCams);
+	if (nCams == 0)
 	{
+		QMessageBox::information(this, QString::fromLocal8Bit("提示"), QString::fromLocal8Bit("没有找到相机,请确认连接和相机IP设置"));
 		return;
 	}
-	char*  path;
-	QByteArray t = filename.toLatin1(); // must
-	path = t.data();
 
-	capture.open(path);
-	
-	timer->start(25);//开启定时器，一次25ms
+	MVSTATUS_CODES r = MVOpenCamByIndex(0, &m_hCam);
+	if (m_hCam == NULL)
+	{
+		if (r == MVST_ACCESS_DENIED)
+		{
+			QMessageBox::information(this, QString::fromLocal8Bit("提示"), QString::fromLocal8Bit("无法打开相机，可能正被别的软件控制"));
+			return;
+		}
+	}
+
+	int w, h;
+	MVGetWidth(m_hCam, &w);
+	MVGetHeight(m_hCam, &h);
+	MVGetPixelFormat(m_hCam, &m_PixelFormat);
+
+	if (m_PixelFormat == PixelFormat_Mono8)
+	{
+		m_image.Create(w, h, 8);
+
+		m_cvSrc.create(h, w, CV_8UC1);
+	}
+	else
+	{
+		m_image.Create(w, h, 24);
+
+		m_cvSrc.create(h, w, CV_8UC3);
+	}
+
+	MVStartGrab(m_hCam, StreamCB, (ULONG_PTR)this);
+
+	MVSetBalanceWhiteAuto(m_hCam, BalanceWhiteAuto_Once);
+
+
 }
 
 //关闭摄像头
 void ColorDetect::CloseCameraClicked()
 {
-	timer->stop();//关闭定时器
-
 	detect_timer->stop();
-	capture.release();//释放图像
+	//timer->stop();//关闭定时器
+	//capture.release();//释放图像
+
+	MVStopGrab(m_hCam);
+
 }
 
 void ColorDetect::start()

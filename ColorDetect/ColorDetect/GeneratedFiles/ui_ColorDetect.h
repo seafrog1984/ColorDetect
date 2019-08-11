@@ -106,7 +106,7 @@ public:
     {
         if (ColorDetectClass->objectName().isEmpty())
             ColorDetectClass->setObjectName(QStringLiteral("ColorDetectClass"));
-        ColorDetectClass->resize(1204, 746);
+        ColorDetectClass->resize(1359, 739);
         centralWidget = new QWidget(ColorDetectClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         label = new MyLabel(centralWidget);
@@ -323,7 +323,7 @@ public:
         btn_search->raise();
         menuBar = new QMenuBar(ColorDetectClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1204, 23));
+        menuBar->setGeometry(QRect(0, 0, 1359, 23));
         ColorDetectClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(ColorDetectClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));

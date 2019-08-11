@@ -11,8 +11,16 @@
 #include <iostream> 
 #include "ColorDll.h"
 #include <QDateTime>
-#include <windows.h>
+//#include <windows.h>
 #include "DataDlg.h"
+
+#include <afxwin.h>
+#include "MVImage.h"
+#include "MVGigE.h"
+#include "MVCamProptySheet.h"
+#include <qtwinextras/qwinfunctions.h>
+
+Q_GUI_EXPORT QPixmap qt_pixmapFromWinHBITMAP(HBITMAP bitmap, int hbitmapFormat = 0);
 
 using namespace cv;
 
@@ -22,11 +30,22 @@ class ColorDetect : public QMainWindow
 
 public:
 	ColorDetect(QWidget *parent = Q_NULLPTR);
+	~ColorDetect();
+
+	HANDLE m_hCam;
+	MVImage m_image;
+	MV_PixelFormatEnums m_PixelFormat;
+	BOOL	m_bLive;
+	cv::Mat	m_cvSrc;
+
+
+	int OnStreamCB(MV_IMAGE_INFO *pInfo);
+
 
 	VideoCapture capture;
 	QTimer *timer;
 	QTimer *detect_timer;
-	QTimer *check_timer;
+
 	Mat frame;
 
 	int m_sx1, m_sy1, m_w1, m_h1;

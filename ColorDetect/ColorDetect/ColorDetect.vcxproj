@@ -18,6 +18,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v120</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -30,7 +31,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IncludePath>D:\OpenCV2.4.9\opencv\build\include;D:\OpenCV2.4.9\opencv\build\include\opencv;D:\OpenCV2.4.9\opencv\build\include\opencv2;D:\Qt\Qt5.6.2\5.6\msvc2013\include;$(IncludePath)</IncludePath>
+    <IncludePath>E:\MyCode\Git\ColorDetect\ColorDetect\ColorDetect\include;D:\OpenCV2.4.9\opencv\build\include;D:\OpenCV2.4.9\opencv\build\include\opencv;D:\OpenCV2.4.9\opencv\build\include\opencv2;D:\Qt\Qt5.6.2\5.6\msvc2013\include;$(IncludePath)</IncludePath>
     <ReferencePath>$(ReferencePath)</ReferencePath>
     <LibraryPath>D:\OpenCV2.4.9\opencv\build\x86\vc12\lib;D:\Qt\Qt5.6.2\5.6\msvc2013\lib;E:\MyCode\Git\ColorDetect\ColorDetect\ColorDetect\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -51,7 +52,7 @@
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>ColorDll.lib;qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;opencv_ml249d.lib;opencv_calib3d249d.lib;opencv_contrib249d.lib;opencv_core249d.lib;opencv_features2d249d.lib;opencv_flann249d.lib;opencv_gpu249d.lib;opencv_highgui249d.lib;opencv_imgproc249d.lib;opencv_legacy249d.lib;opencv_objdetect249d.lib;opencv_ts249d.lib;opencv_video249d.lib;opencv_nonfree249d.lib;opencv_ocl249d.lib;opencv_photo249d.lib;opencv_stitching249d.lib;opencv_superres249d.lib;opencv_videostab249d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>MVCamProptySheet.lib;MVGigE.lib;ColorDll.lib;qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;opencv_ml249d.lib;opencv_calib3d249d.lib;opencv_contrib249d.lib;opencv_core249d.lib;opencv_features2d249d.lib;opencv_flann249d.lib;opencv_gpu249d.lib;opencv_highgui249d.lib;opencv_imgproc249d.lib;opencv_legacy249d.lib;opencv_objdetect249d.lib;opencv_ts249d.lib;opencv_video249d.lib;opencv_nonfree249d.lib;opencv_ocl249d.lib;opencv_photo249d.lib;opencv_stitching249d.lib;opencv_superres249d.lib;opencv_videostab249d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
