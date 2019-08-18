@@ -1,4 +1,14 @@
 <RCC>
-    <qresource prefix="ColorDetect">
+    <qresource prefix="/ColorDetect">
+        <file alias="ColorSet">Resources/colorSet.png</file>
+        <file alias="ColorSet-Sel">Resources/colorSet-sel.png</file>
+        <file alias="Search">Resources/search.png</file>
+        <file alias="Search-Sel">Resources/search-sel.png</file>
+        <file alias="SysPara">Resources/sysPara.png</file>
+        <file alias="SysPara-Sel">Resources/sysPara-sel.png</file>
+        <file alias="Bg">Resources/bg.png</file>
+        <file alias="Bg-sel">Resources/bg-sel.png</file>
+        <file alias="Main">Resources/main.png</file>
+        <file alias="Main-Sel">Resources/main-sel.png</file>
     </qresource>
 </RCC>

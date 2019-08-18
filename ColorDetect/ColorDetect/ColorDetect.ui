@@ -6,22 +6,67 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1359</width>
-    <height>739</height>
+    <width>1320</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>ColorDetect</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget#mainToolBar{
+background-color: rgb(192, 192, 192);
+border-width:3px;
+border-style: double;
+border-color:rgb(255,255,255);
+}</string>
+  </property>
   <widget class="QWidget" name="centralWidget">
+   <property name="styleSheet">
+    <string notr="true">QWidget#centralWidget{
+background-color: rgb(192, 192, 192);
+border-width:3px;
+border-style: double;
+border-color:rgb(255,255,255);
+}
+QPushButton{
+background-image: url(:/ColorDetect/Bg);
+color:yellow;
+}
+QPushButton:pressed{
+background-image: url(:/ColorDetect/Bg-sel);
+color:yellow;
+}
+
+QToolButton{
+background-image: url(:/ColorDetect/Bg);
+color:yellow;
+}
+QToolButton:checked{
+background-image: url(:/ColorDetect/Bg-sel);
+color:yellow;
+}</string>
+   </property>
    <widget class="MyLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>20</y>
+      <x>9</x>
+      <y>100</y>
       <width>640</width>
       <height>480</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>640</width>
+      <height>480</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>640</width>
+      <height>480</height>
+     </size>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(163, 163, 163);</string>
@@ -30,835 +75,1336 @@
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="btn_open_cam">
+   <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>180</x>
-      <y>600</y>
-      <width>93</width>
-      <height>28</height>
+      <x>660</x>
+      <y>41</y>
+      <width>500</width>
+      <height>600</height>
      </rect>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="page_main">
+     <widget class="QLabel" name="label_46">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>30</y>
+        <width>111</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:26pt;&quot;&gt;主界面&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_6">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>240</y>
+        <width>191</width>
+        <height>111</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>检测区2跟踪</string>
+      </property>
+      <widget class="QLineEdit" name="area2_r">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>60</y>
+         <width>31</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_31">
+       <property name="geometry">
+        <rect>
+         <x>70</x>
+         <y>60</y>
+         <width>16</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>G:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_32">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>60</y>
+         <width>16</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>R:</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="area2_b">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>60</y>
+         <width>31</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_33">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>60</y>
+         <width>16</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>B:</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="area2_g">
+       <property name="geometry">
+        <rect>
+         <x>90</x>
+         <y>60</y>
+         <width>31</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_area2">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>20</y>
+         <width>30</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_5">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>110</y>
+        <width>191</width>
+        <height>111</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>检测区1跟踪</string>
+      </property>
+      <widget class="QLineEdit" name="area1_r">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>60</y>
+         <width>31</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_28">
+       <property name="geometry">
+        <rect>
+         <x>70</x>
+         <y>56</y>
+         <width>21</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>G:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_29">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>60</y>
+         <width>16</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>R:</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="area1_b">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>60</y>
+         <width>31</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_30">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>60</y>
+         <width>16</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>B:</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="area1_g">
+       <property name="geometry">
+        <rect>
+         <x>90</x>
+         <y>60</y>
+         <width>31</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_area1">
+       <property name="geometry">
+        <rect>
+         <x>70</x>
+         <y>20</y>
+         <width>30</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QPushButton" name="btn_stop">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>440</y>
+        <width>127</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>停止检测</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btn_start">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>400</y>
+        <width>127</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>开始检测</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btn_test">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>540</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>test</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btn_close_cam">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>440</y>
+        <width>127</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>关闭相机</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btn_open_cam">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>400</y>
+        <width>127</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>打开相机</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_sys">
+     <widget class="QGroupBox" name="groupBox">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>280</y>
+        <width>161</width>
+        <height>201</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>检测区1</string>
+      </property>
+      <widget class="QToolButton" name="btn_sel1">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>127</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>检测区1选择</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="autoExclusive">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_2">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>60</y>
+         <width>71</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>起始点坐标：</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_3">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>110</y>
+         <width>71</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>区域大小：</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="area1_sx">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>80</y>
+         <width>31</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="area1_sy">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>80</y>
+         <width>31</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_4">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>80</y>
+         <width>16</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>x:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_5">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>80</y>
+         <width>16</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>y:</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="area1_h">
+       <property name="geometry">
+        <rect>
+         <x>110</x>
+         <y>130</y>
+         <width>31</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_6">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>130</y>
+         <width>16</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>宽：</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_7">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>130</y>
+         <width>16</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>高：</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="area1_w">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>130</y>
+         <width>31</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QToolButton" name="btn_set_area1">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>160</y>
+         <width>127</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>确定</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>280</y>
+        <width>151</width>
+        <height>201</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>检测区2</string>
+      </property>
+      <widget class="QToolButton" name="btn_sel2">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>127</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>检测区2选择</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="autoExclusive">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_14">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>60</y>
+         <width>71</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>起始点坐标：</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_15">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>110</y>
+         <width>71</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>区域大小：</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="area2_sx">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>80</y>
+         <width>31</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="area2_sy">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>80</y>
+         <width>31</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_16">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>80</y>
+         <width>16</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>x:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_17">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>80</y>
+         <width>16</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>y:</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="area2_h">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>130</y>
+         <width>31</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_19">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>130</y>
+         <width>16</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>高：</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="area2_w">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>130</y>
+         <width>31</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QToolButton" name="btn_set_area2">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>160</y>
+         <width>127</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>确定</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_18">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>130</y>
+         <width>16</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>宽：</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_3">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>90</y>
+        <width>151</width>
+        <height>151</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>时间设定</string>
+      </property>
+      <widget class="QLabel" name="label_20">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>20</y>
+         <width>81</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>检测间隔时间：</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="time_inter">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>40</y>
+         <width>71</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_21">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>40</y>
+         <width>31</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>分钟</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="time_total">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>90</y>
+         <width>71</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_22">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>90</y>
+         <width>31</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>分钟</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_23">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>70</y>
+         <width>81</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>检测终止时间：</string>
+       </property>
+      </widget>
+      <widget class="QToolButton" name="btn_set_time">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>120</y>
+         <width>127</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>确定</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="label_13">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>10</y>
+        <width>221</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:26pt;&quot;&gt;系统参数设置&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="btn_sel_num1">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>110</y>
+        <width>127</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>设置1个检测区</string>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="btn_sel_num2">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>170</y>
+        <width>127</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>设置2个检测区</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_color">
+     <widget class="QGroupBox" name="groupBox_4">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>90</y>
+        <width>191</width>
+        <height>151</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>初始颜色设定</string>
+      </property>
+      <widget class="QToolButton" name="btn_sel_color">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>30</y>
+         <width>90</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>选择初始颜色</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="autoExclusive">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_25">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>70</y>
+         <width>21</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>R:</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="color_r">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>70</y>
+         <width>31</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="color_g">
+       <property name="geometry">
+        <rect>
+         <x>90</x>
+         <y>70</y>
+         <width>31</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_26">
+       <property name="geometry">
+        <rect>
+         <x>70</x>
+         <y>70</y>
+         <width>16</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>G:</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="color_b">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>70</y>
+         <width>31</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_27">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>70</y>
+         <width>16</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>B:</string>
+       </property>
+      </widget>
+      <widget class="QToolButton" name="btn_set_color">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>110</y>
+         <width>127</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>确定</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_color">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>20</y>
+         <width>30</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_7">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>300</y>
+        <width>191</width>
+        <height>151</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>检测颜色1设定</string>
+      </property>
+      <widget class="QToolButton" name="btn_sel_color_4">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>20</y>
+         <width>90</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>选择检测颜色1</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="autoExclusive">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_40">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>70</y>
+         <width>21</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>R:</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="color_r_4">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>70</y>
+         <width>31</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="color_g_4">
+       <property name="geometry">
+        <rect>
+         <x>90</x>
+         <y>70</y>
+         <width>31</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_41">
+       <property name="geometry">
+        <rect>
+         <x>70</x>
+         <y>70</y>
+         <width>16</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>G:</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="color_b_4">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>70</y>
+         <width>31</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_42">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>70</y>
+         <width>16</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>B:</string>
+       </property>
+      </widget>
+      <widget class="QToolButton" name="btn_set_color_4">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>110</y>
+         <width>127</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>确定</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_color_4">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>20</y>
+         <width>30</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_8">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>300</y>
+        <width>191</width>
+        <height>151</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>检测颜色2设定</string>
+      </property>
+      <widget class="QToolButton" name="btn_sel_color_5">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>20</y>
+         <width>90</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>选择检测颜色2</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="autoExclusive">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_43">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>70</y>
+         <width>21</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>R:</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="color_r_5">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>70</y>
+         <width>31</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="color_g_5">
+       <property name="geometry">
+        <rect>
+         <x>90</x>
+         <y>70</y>
+         <width>31</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_44">
+       <property name="geometry">
+        <rect>
+         <x>70</x>
+         <y>70</y>
+         <width>16</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>G:</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="color_b_5">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>70</y>
+         <width>31</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_45">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>70</y>
+         <width>16</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>B:</string>
+       </property>
+      </widget>
+      <widget class="QToolButton" name="btn_set_color_5">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>110</y>
+         <width>127</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>确定</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_color_5">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>20</y>
+         <width>30</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="label_24">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>20</y>
+        <width>81</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:26pt;&quot;&gt;校准&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="btn_detect1">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>140</y>
+        <width>127</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string> 检测1次颜色变化</string>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="btn_detect2">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>200</y>
+        <width>127</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string> 检测2次颜色变化</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="title">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>1150</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>宋体</family>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(0, 85, 255);</string>
     </property>
     <property name="text">
-     <string>打开相机</string>
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QPushButton" name="btn_close_cam">
-    <property name="geometry">
-     <rect>
-      <x>370</x>
-      <y>600</y>
-      <width>93</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>关闭相机</string>
-    </property>
-   </widget>
-   <widget class="QGroupBox" name="groupBox">
-    <property name="geometry">
-     <rect>
-      <x>740</x>
-      <y>50</y>
-      <width>161</width>
-      <height>201</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>检测区1</string>
-    </property>
-    <widget class="QToolButton" name="btn_sel1">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>30</y>
-       <width>81</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>检测区1选择</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_2">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>60</y>
-       <width>71</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>起始点坐标：</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_3">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>110</y>
-       <width>71</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>区域大小：</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="area1_sx">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>80</y>
-       <width>31</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="area1_sy">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>80</y>
-       <width>31</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_4">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>80</y>
-       <width>16</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>x:</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_5">
-     <property name="geometry">
-      <rect>
-       <x>80</x>
-       <y>80</y>
-       <width>16</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>y:</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="area1_h">
-     <property name="geometry">
-      <rect>
-       <x>110</x>
-       <y>130</y>
-       <width>31</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_6">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>130</y>
-       <width>16</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>宽：</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_7">
-     <property name="geometry">
-      <rect>
-       <x>80</x>
-       <y>130</y>
-       <width>16</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>高：</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="area1_w">
-     <property name="geometry">
-      <rect>
-       <x>40</x>
-       <y>130</y>
-       <width>31</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QToolButton" name="btn_set_area1">
-     <property name="geometry">
-      <rect>
-       <x>50</x>
-       <y>170</y>
-       <width>37</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>确定</string>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QGroupBox" name="groupBox_2">
-    <property name="geometry">
-     <rect>
-      <x>950</x>
-      <y>50</y>
-      <width>151</width>
-      <height>201</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>检测区2</string>
-    </property>
-    <widget class="QToolButton" name="btn_sel2">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>30</y>
-       <width>81</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>检测区2选择</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_14">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>60</y>
-       <width>71</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>起始点坐标：</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_15">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>110</y>
-       <width>71</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>区域大小：</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="area2_sx">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>80</y>
-       <width>31</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="area2_sy">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>80</y>
-       <width>31</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_16">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>80</y>
-       <width>16</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>x:</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_17">
-     <property name="geometry">
-      <rect>
-       <x>80</x>
-       <y>80</y>
-       <width>16</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>y:</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="area2_h">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>130</y>
-       <width>31</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_19">
-     <property name="geometry">
-      <rect>
-       <x>80</x>
-       <y>130</y>
-       <width>16</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>高：</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="area2_w">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>130</y>
-       <width>31</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QToolButton" name="btn_set_area2">
-     <property name="geometry">
-      <rect>
-       <x>50</x>
-       <y>170</y>
-       <width>37</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>确定</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_18">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>130</y>
-       <width>16</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>宽：</string>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QGroupBox" name="groupBox_3">
-    <property name="geometry">
-     <rect>
-      <x>740</x>
-      <y>280</y>
-      <width>151</width>
-      <height>151</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>时间设定</string>
-    </property>
-    <widget class="QLabel" name="label_20">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>20</y>
-       <width>81</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>检测间隔时间：</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="time_inter">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>40</y>
-       <width>71</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_21">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>40</y>
-       <width>31</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>分钟</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="time_total">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>90</y>
-       <width>71</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_22">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>90</y>
-       <width>31</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>分钟</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_23">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>70</y>
-       <width>81</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>检测终止时间：</string>
-     </property>
-    </widget>
-    <widget class="QToolButton" name="btn_set_time">
-     <property name="geometry">
-      <rect>
-       <x>40</x>
-       <y>120</y>
-       <width>37</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>确定</string>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QGroupBox" name="groupBox_4">
-    <property name="geometry">
-     <rect>
-      <x>920</x>
-      <y>280</y>
-      <width>191</width>
-      <height>151</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>颜色设定</string>
-    </property>
-    <widget class="QToolButton" name="btn_sel_color">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>40</y>
-       <width>81</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>选择颜色区域</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_25">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>70</y>
-       <width>21</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>R:</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="color_r">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>70</y>
-       <width>31</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="color_g">
-     <property name="geometry">
-      <rect>
-       <x>90</x>
-       <y>70</y>
-       <width>31</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_26">
-     <property name="geometry">
-      <rect>
-       <x>70</x>
-       <y>70</y>
-       <width>21</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>G:</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="color_b">
-     <property name="geometry">
-      <rect>
-       <x>150</x>
-       <y>70</y>
-       <width>31</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_27">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>70</y>
-       <width>21</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>B:</string>
-     </property>
-    </widget>
-    <widget class="QToolButton" name="btn_set_color">
-     <property name="geometry">
-      <rect>
-       <x>70</x>
-       <y>110</y>
-       <width>37</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>确定</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_8">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>20</y>
-       <width>30</width>
-       <height>30</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QGroupBox" name="groupBox_5">
-    <property name="geometry">
-     <rect>
-      <x>730</x>
-      <y>460</y>
-      <width>191</width>
-      <height>111</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>检测区1跟踪</string>
-    </property>
-    <widget class="QLineEdit" name="area1_r">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>60</y>
-       <width>31</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_28">
-     <property name="geometry">
-      <rect>
-       <x>70</x>
-       <y>56</y>
-       <width>21</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>G:</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_29">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>60</y>
-       <width>21</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>R:</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="area1_b">
-     <property name="geometry">
-      <rect>
-       <x>150</x>
-       <y>60</y>
-       <width>31</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_30">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>60</y>
-       <width>21</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>B:</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="area1_g">
-     <property name="geometry">
-      <rect>
-       <x>90</x>
-       <y>60</y>
-       <width>31</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_area1">
-     <property name="geometry">
-      <rect>
-       <x>70</x>
-       <y>20</y>
-       <width>30</width>
-       <height>30</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QGroupBox" name="groupBox_6">
-    <property name="geometry">
-     <rect>
-      <x>960</x>
-      <y>460</y>
-      <width>191</width>
-      <height>111</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>检测区2跟踪</string>
-    </property>
-    <widget class="QLineEdit" name="area2_r">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>60</y>
-       <width>31</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_31">
-     <property name="geometry">
-      <rect>
-       <x>70</x>
-       <y>60</y>
-       <width>21</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>G:</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_32">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>60</y>
-       <width>21</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>R:</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="area2_b">
-     <property name="geometry">
-      <rect>
-       <x>150</x>
-       <y>60</y>
-       <width>31</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_33">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>60</y>
-       <width>21</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>B:</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="area2_g">
-     <property name="geometry">
-      <rect>
-       <x>90</x>
-       <y>60</y>
-       <width>31</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_area2">
-     <property name="geometry">
-      <rect>
-       <x>80</x>
-       <y>20</y>
-       <width>30</width>
-       <height>30</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QPushButton" name="btn_start">
-    <property name="geometry">
-     <rect>
-      <x>790</x>
-      <y>610</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>开始检测</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btn_stop">
-    <property name="geometry">
-     <rect>
-      <x>900</x>
-      <y>610</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>停止检测</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btn_search">
-    <property name="geometry">
-     <rect>
-      <x>1020</x>
-      <y>610</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>查询记录</string>
-    </property>
-   </widget>
-   <zorder>groupBox</zorder>
-   <zorder>label</zorder>
-   <zorder>btn_open_cam</zorder>
-   <zorder>btn_close_cam</zorder>
-   <zorder>groupBox_2</zorder>
-   <zorder>groupBox_3</zorder>
-   <zorder>groupBox_4</zorder>
-   <zorder>groupBox_5</zorder>
-   <zorder>groupBox_6</zorder>
-   <zorder>btn_start</zorder>
-   <zorder>btn_stop</zorder>
-   <zorder>btn_search</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1359</width>
+     <width>1320</width>
      <height>23</height>
     </rect>
    </property>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>126</width>
+     <height>100</height>
+    </size>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonIconOnly</enum>
+   </property>
    <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
+    <enum>LeftToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="mainPage"/>
+   <addaction name="sysPara"/>
+   <addaction name="colorSet"/>
+   <addaction name="search"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QStatusBar" name="statusBar">
+   <property name="sizeGripEnabled">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <action name="sysPara">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="ColorDetect.qrc">
+     <normaloff>:/ColorDetect/SysPara</normaloff>
+     <normalon>:/ColorDetect/SysPara-Sel</normalon>
+     <selectedoff>:/IRProc/ImgProc</selectedoff>:/ColorDetect/SysPara</iconset>
+   </property>
+   <property name="text">
+    <string>参数设置</string>
+   </property>
+   <property name="toolTip">
+    <string>参数设置</string>
+   </property>
+   <property name="statusTip">
+    <string>参数设置</string>
+   </property>
+  </action>
+  <action name="colorSet">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="ColorDetect.qrc">
+     <normaloff>:/ColorDetect/ColorSet</normaloff>
+     <normalon>:/ColorDetect/ColorSet-Sel</normalon>
+     <selectedoff>:/IRProc/ImgProc</selectedoff>:/ColorDetect/ColorSet</iconset>
+   </property>
+   <property name="text">
+    <string>校准</string>
+   </property>
+   <property name="toolTip">
+    <string>校准</string>
+   </property>
+   <property name="statusTip">
+    <string>校准</string>
+   </property>
+  </action>
+  <action name="search">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="ColorDetect.qrc">
+     <normaloff>:/ColorDetect/Search</normaloff>
+     <normalon>:/ColorDetect/Search-Sel</normalon>
+     <selectedoff>:/IRProc/ImgProc</selectedoff>:/ColorDetect/Search</iconset>
+   </property>
+   <property name="text">
+    <string>记录查询</string>
+   </property>
+   <property name="toolTip">
+    <string>记录查询</string>
+   </property>
+   <property name="statusTip">
+    <string>记录查询</string>
+   </property>
+  </action>
+  <action name="mainPage">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="ColorDetect.qrc">
+     <normaloff>:/ColorDetect/Main</normaloff>
+     <normalon>:/ColorDetect/Main-Sel</normalon>
+     <selectedoff>:/IRProc/ImgProc</selectedoff>:/ColorDetect/Main</iconset>
+   </property>
+   <property name="text">
+    <string>主界面</string>
+   </property>
+   <property name="toolTip">
+    <string>主界面</string>
+   </property>
+   <property name="statusTip">
+    <string>主界面</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>

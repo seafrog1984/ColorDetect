@@ -6,12 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>688</width>
-    <height>529</height>
+    <width>810</width>
+    <height>533</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>检测记录查询</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget#DataDlg{
+background-color: rgb(192, 192, 192);
+border-width:3px;
+border-style: double;
+border-color:rgb(255,255,255);
+}</string>
   </property>
   <widget class="QLabel" name="label">
    <property name="geometry">
@@ -44,7 +52,7 @@
     <rect>
      <x>260</x>
      <y>100</y>
-     <width>360</width>
+     <width>450</width>
      <height>401</height>
     </rect>
    </property>
@@ -115,8 +123,8 @@
     <rect>
      <x>600</x>
      <y>40</y>
-     <width>54</width>
-     <height>12</height>
+     <width>31</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">
@@ -127,13 +135,13 @@
    <property name="geometry">
     <rect>
      <x>270</x>
-     <y>70</y>
+     <y>72</y>
      <width>54</width>
      <height>12</height>
     </rect>
    </property>
    <property name="text">
-    <string>终止状态：</string>
+    <string>颜色1：</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="check_state">
@@ -150,10 +158,36 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>70</y>
+     <y>50</y>
      <width>201</width>
-     <height>431</height>
+     <height>451</height>
     </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="check_state_2">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>70</y>
+     <width>111</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>72</y>
+     <width>54</width>
+     <height>12</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>颜色2：</string>
    </property>
   </widget>
  </widget>

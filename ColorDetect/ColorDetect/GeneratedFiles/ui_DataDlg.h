@@ -36,12 +36,20 @@ public:
     QLabel *label_6;
     QLineEdit *check_state;
     QListWidget *listWidget;
+    QLineEdit *check_state_2;
+    QLabel *label_7;
 
     void setupUi(QWidget *DataDlg)
     {
         if (DataDlg->objectName().isEmpty())
             DataDlg->setObjectName(QStringLiteral("DataDlg"));
-        DataDlg->resize(688, 529);
+        DataDlg->resize(810, 533);
+        DataDlg->setStyleSheet(QLatin1String("QWidget#DataDlg{\n"
+"background-color: rgb(192, 192, 192);\n"
+"border-width:3px;\n"
+"border-style: double;\n"
+"border-color:rgb(255,255,255);\n"
+"}"));
         label = new QLabel(DataDlg);
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(40, 15, 91, 16));
@@ -58,7 +66,7 @@ public:
         QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
         tableWidget->setHorizontalHeaderItem(2, __qtablewidgetitem2);
         tableWidget->setObjectName(QStringLiteral("tableWidget"));
-        tableWidget->setGeometry(QRect(260, 100, 360, 401));
+        tableWidget->setGeometry(QRect(260, 100, 450, 401));
         label_3 = new QLabel(DataDlg);
         label_3->setObjectName(QStringLiteral("label_3"));
         label_3->setGeometry(QRect(270, 40, 81, 16));
@@ -73,16 +81,22 @@ public:
         time_total->setGeometry(QRect(540, 37, 51, 20));
         label_5 = new QLabel(DataDlg);
         label_5->setObjectName(QStringLiteral("label_5"));
-        label_5->setGeometry(QRect(600, 40, 54, 12));
+        label_5->setGeometry(QRect(600, 40, 31, 16));
         label_6 = new QLabel(DataDlg);
         label_6->setObjectName(QStringLiteral("label_6"));
-        label_6->setGeometry(QRect(270, 70, 54, 12));
+        label_6->setGeometry(QRect(270, 72, 54, 12));
         check_state = new QLineEdit(DataDlg);
         check_state->setObjectName(QStringLiteral("check_state"));
         check_state->setGeometry(QRect(350, 70, 111, 20));
         listWidget = new QListWidget(DataDlg);
         listWidget->setObjectName(QStringLiteral("listWidget"));
-        listWidget->setGeometry(QRect(30, 70, 201, 431));
+        listWidget->setGeometry(QRect(30, 50, 201, 451));
+        check_state_2 = new QLineEdit(DataDlg);
+        check_state_2->setObjectName(QStringLiteral("check_state_2"));
+        check_state_2->setGeometry(QRect(540, 70, 111, 20));
+        label_7 = new QLabel(DataDlg);
+        label_7->setObjectName(QStringLiteral("label_7"));
+        label_7->setGeometry(QRect(480, 72, 54, 12));
 
         retranslateUi(DataDlg);
 
@@ -103,7 +117,9 @@ public:
         label_3->setText(QApplication::translate("DataDlg", "\346\243\200\346\265\213\345\274\200\345\247\213\346\227\266\351\227\264\357\274\232", 0));
         label_4->setText(QApplication::translate("DataDlg", "\346\243\200\346\265\213\346\227\266\351\225\277\357\274\232", 0));
         label_5->setText(QApplication::translate("DataDlg", "\345\210\206\351\222\237", 0));
-        label_6->setText(QApplication::translate("DataDlg", "\347\273\210\346\255\242\347\212\266\346\200\201\357\274\232", 0));
+        label_6->setText(QApplication::translate("DataDlg", "\351\242\234\350\211\2621\357\274\232", 0));
+        check_state_2->setText(QString());
+        label_7->setText(QApplication::translate("DataDlg", "\351\242\234\350\211\2622\357\274\232", 0));
     } // retranslateUi
 
 };
