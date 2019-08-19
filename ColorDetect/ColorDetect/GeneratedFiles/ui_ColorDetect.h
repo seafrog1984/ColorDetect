@@ -62,6 +62,12 @@ public:
     QPushButton *btn_test;
     QPushButton *btn_close_cam;
     QPushButton *btn_open_cam;
+    QLabel *label_8;
+    QLineEdit *color_num;
+    QLabel *label_9;
+    QLineEdit *detect_time1;
+    QLabel *label_10;
+    QLineEdit *detect_time2;
     QWidget *page_sys;
     QGroupBox *groupBox;
     QToolButton *btn_sel1;
@@ -134,6 +140,7 @@ public:
     QLabel *label_24;
     QToolButton *btn_detect1;
     QToolButton *btn_detect2;
+    QPushButton *btn_color_correct;
     QLabel *title;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
@@ -223,7 +230,7 @@ public:
         label_46->setGeometry(QRect(170, 30, 111, 41));
         groupBox_6 = new QGroupBox(page_main);
         groupBox_6->setObjectName(QStringLiteral("groupBox_6"));
-        groupBox_6->setGeometry(QRect(120, 240, 191, 111));
+        groupBox_6->setGeometry(QRect(240, 130, 150, 100));
         area2_r = new QLineEdit(groupBox_6);
         area2_r->setObjectName(QStringLiteral("area2_r"));
         area2_r->setGeometry(QRect(30, 60, 31, 20));
@@ -244,10 +251,18 @@ public:
         area2_g->setGeometry(QRect(90, 60, 31, 20));
         label_area2 = new QLabel(groupBox_6);
         label_area2->setObjectName(QStringLiteral("label_area2"));
-        label_area2->setGeometry(QRect(80, 20, 30, 30));
+        label_area2->setGeometry(QRect(50, 25, 60, 60));
+        label_area2->setStyleSheet(QStringLiteral("border: 1px solid"));
+        area2_r->raise();
+        label_31->raise();
+        label_32->raise();
+        area2_b->raise();
+        label_33->raise();
+        area2_g->raise();
+        label_area2->raise();
         groupBox_5 = new QGroupBox(page_main);
         groupBox_5->setObjectName(QStringLiteral("groupBox_5"));
-        groupBox_5->setGeometry(QRect(120, 110, 191, 111));
+        groupBox_5->setGeometry(QRect(50, 130, 150, 100));
         area1_r = new QLineEdit(groupBox_5);
         area1_r->setObjectName(QStringLiteral("area1_r"));
         area1_r->setGeometry(QRect(30, 60, 31, 20));
@@ -268,22 +283,44 @@ public:
         area1_g->setGeometry(QRect(90, 60, 31, 20));
         label_area1 = new QLabel(groupBox_5);
         label_area1->setObjectName(QStringLiteral("label_area1"));
-        label_area1->setGeometry(QRect(70, 20, 30, 30));
+        label_area1->setGeometry(QRect(50, 25, 60, 60));
+        label_area1->setStyleSheet(QStringLiteral("border: 1px solid"));
         btn_stop = new QPushButton(page_main);
         btn_stop->setObjectName(QStringLiteral("btn_stop"));
-        btn_stop->setGeometry(QRect(230, 440, 127, 30));
+        btn_stop->setGeometry(QRect(230, 480, 127, 30));
         btn_start = new QPushButton(page_main);
         btn_start->setObjectName(QStringLiteral("btn_start"));
-        btn_start->setGeometry(QRect(230, 400, 127, 30));
+        btn_start->setGeometry(QRect(230, 440, 127, 30));
         btn_test = new QPushButton(page_main);
         btn_test->setObjectName(QStringLiteral("btn_test"));
         btn_test->setGeometry(QRect(310, 540, 75, 23));
         btn_close_cam = new QPushButton(page_main);
         btn_close_cam->setObjectName(QStringLiteral("btn_close_cam"));
-        btn_close_cam->setGeometry(QRect(70, 440, 127, 30));
+        btn_close_cam->setGeometry(QRect(70, 480, 127, 30));
         btn_open_cam = new QPushButton(page_main);
         btn_open_cam->setObjectName(QStringLiteral("btn_open_cam"));
-        btn_open_cam->setGeometry(QRect(70, 400, 127, 30));
+        btn_open_cam->setGeometry(QRect(70, 440, 127, 30));
+        label_8 = new QLabel(page_main);
+        label_8->setObjectName(QStringLiteral("label_8"));
+        label_8->setGeometry(QRect(120, 290, 71, 16));
+        color_num = new QLineEdit(page_main);
+        color_num->setObjectName(QStringLiteral("color_num"));
+        color_num->setGeometry(QRect(210, 285, 113, 20));
+        color_num->setReadOnly(true);
+        label_9 = new QLabel(page_main);
+        label_9->setObjectName(QStringLiteral("label_9"));
+        label_9->setGeometry(QRect(120, 320, 91, 16));
+        detect_time1 = new QLineEdit(page_main);
+        detect_time1->setObjectName(QStringLiteral("detect_time1"));
+        detect_time1->setGeometry(QRect(210, 315, 113, 20));
+        detect_time1->setReadOnly(true);
+        label_10 = new QLabel(page_main);
+        label_10->setObjectName(QStringLiteral("label_10"));
+        label_10->setGeometry(QRect(120, 355, 91, 16));
+        detect_time2 = new QLineEdit(page_main);
+        detect_time2->setObjectName(QStringLiteral("detect_time2"));
+        detect_time2->setGeometry(QRect(210, 350, 113, 20));
+        detect_time2->setReadOnly(true);
         stackedWidget->addWidget(page_main);
         page_sys = new QWidget();
         page_sys->setObjectName(QStringLiteral("page_sys"));
@@ -510,6 +547,9 @@ public:
         btn_detect2 = new QToolButton(page_color);
         btn_detect2->setObjectName(QStringLiteral("btn_detect2"));
         btn_detect2->setGeometry(QRect(70, 200, 127, 30));
+        btn_color_correct = new QPushButton(page_color);
+        btn_color_correct->setObjectName(QStringLiteral("btn_color_correct"));
+        btn_color_correct->setGeometry(QRect(70, 90, 127, 30));
         stackedWidget->addWidget(page_color);
         title = new QLabel(centralWidget);
         title->setObjectName(QStringLiteral("title"));
@@ -556,30 +596,18 @@ public:
 #ifndef QT_NO_TOOLTIP
         sysPara->setToolTip(QApplication::translate("ColorDetectClass", "\345\217\202\346\225\260\350\256\276\347\275\256", 0));
 #endif // QT_NO_TOOLTIP
-#ifndef QT_NO_STATUSTIP
-        sysPara->setStatusTip(QApplication::translate("ColorDetectClass", "\345\217\202\346\225\260\350\256\276\347\275\256", 0));
-#endif // QT_NO_STATUSTIP
         colorSet->setText(QApplication::translate("ColorDetectClass", "\346\240\241\345\207\206", 0));
 #ifndef QT_NO_TOOLTIP
         colorSet->setToolTip(QApplication::translate("ColorDetectClass", "\346\240\241\345\207\206", 0));
 #endif // QT_NO_TOOLTIP
-#ifndef QT_NO_STATUSTIP
-        colorSet->setStatusTip(QApplication::translate("ColorDetectClass", "\346\240\241\345\207\206", 0));
-#endif // QT_NO_STATUSTIP
         search->setText(QApplication::translate("ColorDetectClass", "\350\256\260\345\275\225\346\237\245\350\257\242", 0));
 #ifndef QT_NO_TOOLTIP
         search->setToolTip(QApplication::translate("ColorDetectClass", "\350\256\260\345\275\225\346\237\245\350\257\242", 0));
 #endif // QT_NO_TOOLTIP
-#ifndef QT_NO_STATUSTIP
-        search->setStatusTip(QApplication::translate("ColorDetectClass", "\350\256\260\345\275\225\346\237\245\350\257\242", 0));
-#endif // QT_NO_STATUSTIP
         mainPage->setText(QApplication::translate("ColorDetectClass", "\344\270\273\347\225\214\351\235\242", 0));
 #ifndef QT_NO_TOOLTIP
         mainPage->setToolTip(QApplication::translate("ColorDetectClass", "\344\270\273\347\225\214\351\235\242", 0));
 #endif // QT_NO_TOOLTIP
-#ifndef QT_NO_STATUSTIP
-        mainPage->setStatusTip(QApplication::translate("ColorDetectClass", "\344\270\273\347\225\214\351\235\242", 0));
-#endif // QT_NO_STATUSTIP
         label->setText(QString());
         label_46->setText(QApplication::translate("ColorDetectClass", "<html><head/><body><p><span style=\" font-size:26pt;\">\344\270\273\347\225\214\351\235\242</span></p></body></html>", 0));
         groupBox_6->setTitle(QApplication::translate("ColorDetectClass", "\346\243\200\346\265\213\345\214\2722\350\267\237\350\270\252", 0));
@@ -599,6 +627,9 @@ public:
         btn_test->setText(QApplication::translate("ColorDetectClass", "test", 0));
         btn_close_cam->setText(QApplication::translate("ColorDetectClass", "\345\205\263\351\227\255\347\233\270\346\234\272", 0));
         btn_open_cam->setText(QApplication::translate("ColorDetectClass", "\346\211\223\345\274\200\347\233\270\346\234\272", 0));
+        label_8->setText(QApplication::translate("ColorDetectClass", "\346\243\200\346\265\213\351\242\234\350\211\262\346\225\260\357\274\232", 0));
+        label_9->setText(QApplication::translate("ColorDetectClass", "\351\242\234\350\211\2621\346\243\200\346\265\213\346\227\266\351\227\264\357\274\232", 0));
+        label_10->setText(QApplication::translate("ColorDetectClass", "\351\242\234\350\211\2622\346\243\200\346\265\213\346\227\266\351\227\264\357\274\232", 0));
         groupBox->setTitle(QApplication::translate("ColorDetectClass", "\346\243\200\346\265\213\345\214\2721", 0));
         btn_sel1->setText(QApplication::translate("ColorDetectClass", "\346\243\200\346\265\213\345\214\2721\351\200\211\346\213\251", 0));
         label_2->setText(QApplication::translate("ColorDetectClass", "\350\265\267\345\247\213\347\202\271\345\235\220\346\240\207\357\274\232", 0));
@@ -653,6 +684,7 @@ public:
         label_24->setText(QApplication::translate("ColorDetectClass", "<html><head/><body><p><span style=\" font-size:26pt;\">\346\240\241\345\207\206</span></p></body></html>", 0));
         btn_detect1->setText(QApplication::translate("ColorDetectClass", " \346\243\200\346\265\2131\346\254\241\351\242\234\350\211\262\345\217\230\345\214\226", 0));
         btn_detect2->setText(QApplication::translate("ColorDetectClass", " \346\243\200\346\265\2132\346\254\241\351\242\234\350\211\262\345\217\230\345\214\226", 0));
+        btn_color_correct->setText(QApplication::translate("ColorDetectClass", "\347\233\270\346\234\272\351\242\234\350\211\262\346\240\241\346\255\243", 0));
         title->setText(QString());
     } // retranslateUi
 

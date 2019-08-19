@@ -15,11 +15,16 @@ public:
 	DataDlg(QWidget *parent = Q_NULLPTR);
 	~DataDlg();
 
+	QStringList m_files;
+
 private:
 	Ui::DataDlg ui;
 
 public slots:
 
 	void openRecord();
+
+	void timeSel();
+	void userSel();
 
 };

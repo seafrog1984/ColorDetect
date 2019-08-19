@@ -4,6 +4,7 @@
 #define CHECK_NUM 15
 #define IMAGE_WIDTH 640
 #define IMAGE_HEIGHT 480
+#define CHECK_TH 4
 
 
 int g_cur_shape = 0;//当前区域下标
@@ -67,6 +68,7 @@ ColorDetect::ColorDetect(QWidget *parent)
 	connect(ui.btn_set_area2, SIGNAL(clicked()), this, SLOT(setArea2()));//设置区域2
 
 	//校准界面
+	connect(ui.btn_color_correct, SIGNAL(clicked()), this, SLOT(colorCorrect()));////设置检测1次颜色变化
 	connect(ui.btn_detect1, SIGNAL(clicked()), this, SLOT(setDetectNum1()));////设置检测1次颜色变化
 	connect(ui.btn_detect2, SIGNAL(clicked()), this, SLOT(setDetectNum2()));////设置检测2次颜色变化
 	connect(ui.btn_sel_color, SIGNAL(clicked()), this, SLOT(selColor()));//选择颜色区域
@@ -206,6 +208,8 @@ ColorDetect::ColorDetect(QWidget *parent)
 	}
 	fin_color.close();
 
+	ui.color_num->setText(QString::number(m_color_num));
+
 	ui.color_b->setText(QString::number(m_color[0][0]));
 	ui.color_g->setText(QString::number(m_color[0][1]));
 	ui.color_r->setText(QString::number(m_color[0][2]));
@@ -223,18 +227,21 @@ ColorDetect::ColorDetect(QWidget *parent)
 	ui.color_r_5->setText(QString::number(m_color[2][2]));
 	ui.label_color_5->setAutoFillBackground(true);
 	ui.label_color_5->setPalette(m_pcolor[2]);
+
+	
 	if (m_color_num <2)
 	{
 		ui.btn_sel_color_5->setStyleSheet("color:black;");
 		ui.btn_sel_color_5->setDisabled(true);
 		ui.btn_set_color_5->setStyleSheet("color:black;");
 		ui.btn_set_color_5->setDisabled(true);
+
 	}
 
 	ifstream fin_time("time.ini");
 	if (fin_time.fail())
 	{
-		QMessageBox::information(NULL, "Title", "No time!");
+		QMessageBox::information(NULL, "Title", QString::fromLocal8Bit("没有检测时间配置文件!"));
 
 	}
 	else
@@ -268,7 +275,20 @@ ColorDetect::ColorDetect(QWidget *parent)
 	fin_time.close();
 
 
-	m_th = 3;
+	m_th = CHECK_TH;
+
+	ui.area1_b->hide();
+	ui.area1_g->hide();
+	ui.area1_r->hide();
+	ui.area2_b->hide();
+	ui.area2_g->hide();
+	ui.area2_r->hide();
+	ui.label_28->hide();
+	ui.label_29->hide();
+	ui.label_30->hide();
+	ui.label_31->hide();
+	ui.label_32->hide();
+	ui.label_33->hide();
 
 //	ui.label_color->update();
 
@@ -302,10 +322,26 @@ ColorDetect::ColorDetect(QWidget *parent)
 	ui.statusBar->addWidget(stateLabel); //在状态栏添加此控件
 
 	detectLabel = new QLabel;
-	detectLabel->setMinimumWidth(100);
+	detectLabel->setMinimumWidth(80);
 	detectLabel->setAlignment(Qt::AlignCenter);
 	detectLabel->setStyleSheet("color:rgb(0,0,255);");
 	ui.statusBar->addWidget(detectLabel); //在状态栏添加此控件
+
+
+	interLabel = new QLabel;
+	interLabel->setMinimumWidth(150);
+	interLabel->setAlignment(Qt::AlignCenter);
+	interLabel->setStyleSheet("color:rgb(0,0,255);");
+	interLabel->setText(QString::fromLocal8Bit("检测间隔(min)：") + QString::number(m_time_inter));
+	ui.statusBar->addWidget(interLabel); //在状态栏添加此控件
+
+	totalLabel = new QLabel;
+	totalLabel->setMinimumWidth(150);
+	totalLabel->setAlignment(Qt::AlignCenter);
+	totalLabel->setStyleSheet("color:rgb(0,0,255);");
+	totalLabel->setText(QString::fromLocal8Bit("终止时间(min)：") + QString::number(m_time_total));
+	ui.statusBar->addWidget(totalLabel); //在状态栏添加此控件
+
 
 	ctimer = new QTimer(this);
 	ctimer->start(1000); //每隔1000ms发送timeout的信号
@@ -329,7 +365,14 @@ ColorDetect::~ColorDetect()
 
 }
 
+void ColorDetect::colorCorrect()
+{
+	if (m_hCam != NULL)
+	{
+		MVSetColorCorrect(m_hCam, 1);
+	}
 
+}
 
 void ColorDetect::setDetectNum1()
 {
@@ -390,6 +433,7 @@ void ColorDetect::time_update()
 	else
 	{
 		stateLabel->setText(QString::fromLocal8Bit("待机中"));
+		detectLabel->setText("");
 	}
 
 }
@@ -542,8 +586,8 @@ void ColorDetect::detect()
 		{
 			QDateTime current_time = QDateTime::currentDateTime();
 			QString timestr = current_time.toString("yyyy-MM-dd-hh-mm-ss"); //设置显示的格式
-			m_data_file = m_data_path + timestr + ".txt";
-			m_result_file = m_data_path + timestr + ".dat";
+			m_data_file = m_data_path + g_user+"#"+ timestr + ".txt";
+			m_result_file = m_data_path + g_user + "#" + timestr + ".dat";
 			g_start_flag = 0;
 
 			fstream fout(m_data_file.toStdString(), ios::app);
@@ -650,9 +694,16 @@ void ColorDetect::detect()
 				//fout << m_cur_time << ' ' << g_check_flag << ' ' << g_check_area << endl;
 				//fout.close();
 
+				ui.detect_time1->setText(QString::number(m_cur_time));
 				g_detect_flag = 0;
 				detect_timer->stop();
-
+				ui.mainPage->setDisabled(false);
+				ui.search->setDisabled(false);
+				if (g_user == "admin")
+				{
+					ui.colorSet->setDisabled(false);
+					ui.sysPara->setDisabled(false);
+				}
 				return;
 			}
 
@@ -677,8 +728,16 @@ void ColorDetect::detect()
 
 			/*	fout << m_cur_time << ' ' << g_check_flag << ' ' << g_check_area << endl;
 				fout.close();*/
+				ui.detect_time1->setText(QString::number(m_cur_time));
 				g_detect_flag = 0;
 				detect_timer->stop();
+				ui.mainPage->setDisabled(false);
+				ui.search->setDisabled(false);
+				if (g_user == "admin")
+				{
+					ui.colorSet->setDisabled(false);
+					ui.sysPara->setDisabled(false);
+				}
 				return;
 			}
 		}
@@ -698,8 +757,16 @@ void ColorDetect::detect()
 
 			//fout << m_cur_time << ' ' << g_check_flag << ' ' << g_check_area << endl;//总时间；是否检测到目标颜色（0-未检测到；1-检测到；2-手动停止）；检测到颜色区域（0-未检测到；1-区域1；2-区域2）
 			//fout.close();
+			ui.detect_time1->setText(QString::fromLocal8Bit("超时"));
 			g_detect_flag = 0;
 			detect_timer->stop();
+			ui.mainPage->setDisabled(false);
+			ui.search->setDisabled(false);
+			if (g_user == "admin")
+			{
+				ui.colorSet->setDisabled(false);
+				ui.sysPara->setDisabled(false);
+			}
 			return;
 
 		}
@@ -717,8 +784,8 @@ void ColorDetect::detect()
 		{
 			QDateTime current_time = QDateTime::currentDateTime();
 			QString timestr = current_time.toString("yyyy-MM-dd-hh-mm-ss"); //设置显示的格式
-			m_data_file = m_data_path + timestr + ".txt";
-			m_result_file = m_data_path + timestr + ".dat";
+			m_data_file = m_data_path + g_user + "#" + timestr + ".txt";
+			m_result_file = m_data_path + g_user + "#" + timestr + ".dat";
 			g_start_flag = 0;
 
 			fstream fout(m_data_file.toStdString(), ios::app);
@@ -829,13 +896,22 @@ void ColorDetect::detect()
 				if (g_color_index == 1)
 				{
 					g_color_index++;
+					ui.detect_time1->setText(QString::number(m_cur_time));
 				}
 				else if (g_color_index == 2)
 				{
 					QMessageBox::information(NULL, "Title", QString::fromLocal8Bit("区域1检测到终止颜色！用时(min)：") + QString::number(m_cur_time));
 
+					ui.detect_time2->setText(QString::number(m_cur_time));
 					g_detect_flag = 0;
 					detect_timer->stop();
+					ui.mainPage->setDisabled(false);
+					ui.search->setDisabled(false);
+					if (g_user == "admin")
+					{
+						ui.colorSet->setDisabled(false);
+						ui.sysPara->setDisabled(false);
+					}
 				}
 				return;
 			}
@@ -862,12 +938,21 @@ void ColorDetect::detect()
 				if (g_color_index == 1)
 				{
 					g_color_index++;
+					ui.detect_time1->setText(QString::number(m_cur_time));
 				}
 				else if (g_color_index == 2)
 				{
 					QMessageBox::information(NULL, "Title", QString::fromLocal8Bit("区域2检测到终止颜色！用时(min)：") + QString::number(m_cur_time));
+					ui.detect_time2->setText(QString::number(m_cur_time));
 					g_detect_flag = 0;
 					detect_timer->stop();
+					ui.mainPage->setDisabled(false);
+					ui.search->setDisabled(false);
+					if (g_user == "admin")
+					{
+						ui.colorSet->setDisabled(false);
+						ui.sysPara->setDisabled(false);
+					}
 				}
 				return;
 			}
@@ -889,8 +974,18 @@ void ColorDetect::detect()
 
 			//fout << m_cur_time << ' ' << g_check_flag << ' ' << g_check_area << endl;//总时间；是否检测到目标颜色（0-未检测到；1-检测到；2-手动停止）；检测到颜色区域（0-未检测到；1-区域1；2-区域2）
 			//fout.close();
+			if (g_color_index == 1) ui.detect_time1->setText(QString::fromLocal8Bit("超时"));
+			if (g_color_index == 2) ui.detect_time2->setText(QString::fromLocal8Bit("超时"));
 			g_detect_flag = 0;
 			detect_timer->stop();
+			ui.mainPage->setDisabled(false);
+			ui.search->setDisabled(false);
+
+			if (g_user == "admin")
+			{
+				ui.colorSet->setDisabled(false);
+				ui.sysPara->setDisabled(false);
+			}
 			return;
 
 		}
@@ -1410,7 +1505,13 @@ void ColorDetect::start()
 	g_detect_time = 0;
 	detect();
 	detect_timer->start(m_time_inter * 1000 * 60);
+	ui.detect_time1->setText(QString::fromLocal8Bit(""));
+	ui.detect_time2->setText(QString::fromLocal8Bit(""));
 
+	ui.colorSet->setDisabled(true);
+	ui.sysPara->setDisabled(true);
+	ui.mainPage->setDisabled(true);
+	ui.search->setDisabled(true);
 }
 
 void ColorDetect::stop()
@@ -1436,6 +1537,16 @@ void ColorDetect::stop()
 	fout2 << m_cur_time << ' ' << g_check_flag << ' ' << g_check_area << endl;
 	fout2.close();
 
+	if (g_color_index == 1) ui.detect_time1->setText(QString::fromLocal8Bit("手动停止"));
+	if (g_color_index == 2) ui.detect_time2->setText(QString::fromLocal8Bit("手动停止"));
+
+	ui.mainPage->setDisabled(false);
+	ui.search->setDisabled(false);
+	if (g_user == "admin")
+	{
+		ui.colorSet->setDisabled(false);
+		ui.sysPara->setDisabled(false);
+	}
 	//fout << m_cur_time << ' ' << g_check_flag << ' ' << g_check_area << endl;;
 	//fout.close();
 

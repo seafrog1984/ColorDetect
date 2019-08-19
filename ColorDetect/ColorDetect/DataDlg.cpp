@@ -29,20 +29,81 @@ DataDlg::DataDlg(QWidget *parent)
 
 	QStringList nameFilters;
 	nameFilters << "*.txt";
-	QStringList files = dir.entryList(nameFilters, QDir::Files | QDir::Readable, QDir::Name);
+	m_files = dir.entryList(nameFilters, QDir::Files | QDir::Readable, QDir::Name);
 
-	for (int i = 0; i < files.size(); i++)
+
+	for (int i = 0; i < m_files.size(); i++)
 	{
-		ui.listWidget->addItem(files[i].split('.')[0]);
+		ui.listWidget->addItem(m_files[i].split('.')[0]);
 	}
 
 	connect(ui.listWidget, SIGNAL(itemSelectionChanged()), this, SLOT(openRecord()));
+	connect(ui.btn_time_sel, SIGNAL(clicked()), this, SLOT(timeSel()));
+	connect(ui.btn_user_sel, SIGNAL(clicked()), this, SLOT(userSel()));
 
+	ui.time_start->setDateTime(QDateTime::currentDateTime());
+	ui.time_end->setDateTime(QDateTime::currentDateTime());
 }
 
 DataDlg::~DataDlg()
 {
 }
+
+void DataDlg::timeSel()
+{
+	ui.listWidget->clear();
+
+	QDateTime startTime = ui.time_start->dateTime();
+	QDateTime endTime = ui.time_end->dateTime();
+	QDateTime time;
+
+	if (startTime == endTime)
+	{
+		for (int i = 0; i < m_files.size(); i++)
+		{
+			ui.listWidget->addItem(m_files[i].split('.')[0]);
+		}
+	}
+	else
+	{
+		for (int i = 0; i < m_files.size(); i++)
+		{
+			time = QDateTime::fromString(m_files[i].split('.')[0].split('#')[1], "yyyy-MM-dd-hh-mm-ss");
+
+			if (time >= startTime&&time <= endTime)
+				ui.listWidget->addItem(m_files[i].split('.')[0]);
+		}
+	}
+
+
+
+}
+
+void DataDlg::userSel()
+{
+	ui.listWidget->clear();
+	QString username = ui.user->text();
+	
+	if (username == "")
+	{
+		for (int i = 0; i < m_files.size(); i++)
+		{
+			ui.listWidget->addItem(m_files[i].split('.')[0]);
+		}
+	}
+	else
+	{
+		for (int i = 0; i < m_files.size(); i++)
+		{
+			if (m_files[i].split('#')[0] == username)
+				ui.listWidget->addItem(m_files[i].split('.')[0]);
+		}
+	}
+
+
+}
+
+
 
 void DataDlg::openRecord()
 {

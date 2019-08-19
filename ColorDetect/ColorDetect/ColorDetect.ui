@@ -104,10 +104,10 @@ color:yellow;
      <widget class="QGroupBox" name="groupBox_6">
       <property name="geometry">
        <rect>
-        <x>120</x>
-        <y>240</y>
-        <width>191</width>
-        <height>111</height>
+        <x>240</x>
+        <y>130</y>
+        <width>150</width>
+        <height>100</height>
        </rect>
       </property>
       <property name="title">
@@ -188,24 +188,35 @@ color:yellow;
       <widget class="QLabel" name="label_area2">
        <property name="geometry">
         <rect>
-         <x>80</x>
-         <y>20</y>
-         <width>30</width>
-         <height>30</height>
+         <x>50</x>
+         <y>25</y>
+         <width>60</width>
+         <height>60</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border: 1px solid</string>
        </property>
        <property name="text">
         <string/>
        </property>
       </widget>
+      <zorder>area2_r</zorder>
+      <zorder>label_31</zorder>
+      <zorder>label_32</zorder>
+      <zorder>area2_b</zorder>
+      <zorder>label_33</zorder>
+      <zorder>area2_g</zorder>
+      <zorder>label_area2</zorder>
+      <zorder>groupBox_5</zorder>
      </widget>
      <widget class="QGroupBox" name="groupBox_5">
       <property name="geometry">
        <rect>
-        <x>120</x>
-        <y>110</y>
-        <width>191</width>
-        <height>111</height>
+        <x>50</x>
+        <y>130</y>
+        <width>150</width>
+        <height>100</height>
        </rect>
       </property>
       <property name="title">
@@ -286,11 +297,14 @@ color:yellow;
       <widget class="QLabel" name="label_area1">
        <property name="geometry">
         <rect>
-         <x>70</x>
-         <y>20</y>
-         <width>30</width>
-         <height>30</height>
+         <x>50</x>
+         <y>25</y>
+         <width>60</width>
+         <height>60</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border: 1px solid</string>
        </property>
        <property name="text">
         <string/>
@@ -301,7 +315,7 @@ color:yellow;
       <property name="geometry">
        <rect>
         <x>230</x>
-        <y>440</y>
+        <y>480</y>
         <width>127</width>
         <height>30</height>
        </rect>
@@ -314,7 +328,7 @@ color:yellow;
       <property name="geometry">
        <rect>
         <x>230</x>
-        <y>400</y>
+        <y>440</y>
         <width>127</width>
         <height>30</height>
        </rect>
@@ -340,7 +354,7 @@ color:yellow;
       <property name="geometry">
        <rect>
         <x>70</x>
-        <y>440</y>
+        <y>480</y>
         <width>127</width>
         <height>30</height>
        </rect>
@@ -353,13 +367,91 @@ color:yellow;
       <property name="geometry">
        <rect>
         <x>70</x>
-        <y>400</y>
+        <y>440</y>
         <width>127</width>
         <height>30</height>
        </rect>
       </property>
       <property name="text">
        <string>打开相机</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>290</y>
+        <width>71</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>检测颜色数：</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="color_num">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>285</y>
+        <width>113</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_9">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>320</y>
+        <width>91</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>颜色1检测时间：</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="detect_time1">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>315</y>
+        <width>113</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_10">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>355</y>
+        <width>91</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>颜色2检测时间：</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="detect_time2">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>350</y>
+        <width>113</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
       </property>
      </widget>
     </widget>
@@ -1258,6 +1350,19 @@ color:yellow;
        <string> 检测2次颜色变化</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="btn_color_correct">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>90</y>
+        <width>127</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>相机颜色校正</string>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QLabel" name="title">
@@ -1341,9 +1446,6 @@ color:yellow;
    <property name="toolTip">
     <string>参数设置</string>
    </property>
-   <property name="statusTip">
-    <string>参数设置</string>
-   </property>
   </action>
   <action name="colorSet">
    <property name="checkable">
@@ -1359,9 +1461,6 @@ color:yellow;
     <string>校准</string>
    </property>
    <property name="toolTip">
-    <string>校准</string>
-   </property>
-   <property name="statusTip">
     <string>校准</string>
    </property>
   </action>
@@ -1381,9 +1480,6 @@ color:yellow;
    <property name="toolTip">
     <string>记录查询</string>
    </property>
-   <property name="statusTip">
-    <string>记录查询</string>
-   </property>
   </action>
   <action name="mainPage">
    <property name="checkable">
@@ -1399,9 +1495,6 @@ color:yellow;
     <string>主界面</string>
    </property>
    <property name="toolTip">
-    <string>主界面</string>
-   </property>
-   <property name="statusTip">
     <string>主界面</string>
    </property>
   </action>

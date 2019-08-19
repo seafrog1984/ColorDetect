@@ -85,6 +85,9 @@ public:
 	QLabel *stateLabel;//显示系统状态
 	QLabel *detectLabel;//显示检测时间
 	QLabel *userLabel;//显示登录用户
+	QLabel *interLabel;//显示间隔时间
+	QLabel *totalLabel;//显示终止时间
+
 
 private:
 	Ui::ColorDetectClass ui;
@@ -114,6 +117,7 @@ private slots:
 	void setArea1();//设置区域1
 	void setArea2();//设置区域2
 
+	void colorCorrect();//相机颜色校准
 	void setDetectNum1();//设置检测1次颜色变化
 	void setDetectNum2();//设置检测2次颜色变化
 	void selColor();//选择颜色区域
