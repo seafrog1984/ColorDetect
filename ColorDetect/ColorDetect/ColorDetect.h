@@ -48,6 +48,7 @@ public:
 	BOOL	m_bLive;
 	cv::Mat	m_cvSrc;
 
+	void closeEvent(QCloseEvent *event);
 
 	int OnStreamCB(MV_IMAGE_INFO *pInfo);
 
@@ -62,6 +63,8 @@ public:
 	int m_sx1, m_sy1, m_w1, m_h1;
 	int m_sx2, m_sy2, m_w2, m_h2;
 	Area area[2];
+
+	int m_live;//显示视频标志
 
 	int m_time_inter;//检测间隔时间min
 	int m_time_total;//检测终止时间min

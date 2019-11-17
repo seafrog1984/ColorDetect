@@ -6,7 +6,7 @@
 int main(int argc, char *argv[])
 {
 
-	QApplication::addLibraryPath("./plugins");
+	QApplication::addLibraryPath("D:\\ColorConfig\\plugins");
 	QApplication a(argc, argv);
 
 	LogDlg w;

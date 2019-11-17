@@ -23,8 +23,8 @@ LogDlg::LogDlg(QWidget *parent)
 	writeData(file, p1);
 	file.close();*/
 
-	QFile file1("./stream.bat");//.bat文件为二进制文件
-	QFileInfo info("./stream.bat");
+	QFile file1("D:\\ColorConfig\\stream.bat");//.bat文件为二进制文件
+	QFileInfo info("D:\\ColorConfig\\stream.bat");
 	if (!file1.open(QIODevice::ReadOnly))
 	{
 		return;
@@ -86,8 +86,9 @@ void LogDlg::log()
 	if (log_flag == 2)
 	{
 		ColorDetect *w=new ColorDetect;	
-		w->setWindowFlags(w->windowFlags()& ~Qt::WindowMaximizeButtonHint& ~Qt::WindowMinimizeButtonHint);
-		w->show();
+	//	w->setWindowFlags(w->windowFlags()& ~Qt::WindowMaximizeButtonHint& ~Qt::WindowMinimizeButtonHint);
+		//w->setWindowFlags(w->windowFlags()& ~Qt::WindowMaximizeButtonHint);
+		w->showMaximized();
 
 		this->setHidden(true);
 	}

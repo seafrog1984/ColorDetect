@@ -4,7 +4,7 @@
 #define CHECK_NUM 15
 #define IMAGE_WIDTH 640
 #define IMAGE_HEIGHT 480
-#define CHECK_TH 4
+#define CHECK_TH 7
 
 
 int g_cur_shape = 0;//当前区域下标
@@ -25,6 +25,7 @@ int g_detect_flag=0;//检测进行标志：0-待机中；1-检测中
 int g_detect_time = 0;//检测计时器
 
 
+
 QString g_data_path;//数据保存目录
 
 extern QString g_user;
@@ -40,6 +41,14 @@ ColorDetect::ColorDetect(QWidget *parent)
 
 	timer = new QTimer(this);
 	detect_timer = new QTimer(this);
+
+	//Qt::WindowFlags flag = Qt::Dialog;
+	//flag |= Qt::WindowMinimizeButtonHint;
+	//flag |= Qt::WindowMaxmizeButtonHint;
+	//flag |= Qt::WindowCloseButtonHint;
+
+	this->showMinimized();
+
 
 	//系统菜单
 	connect(ui.mainPage, &QAction::triggered, this, &ColorDetect::mainPage);
@@ -85,7 +94,8 @@ ColorDetect::ColorDetect(QWidget *parent)
 	//capture.open("D:\\1.avi");
 
 	QDir dir;
-	m_data_path = dir.currentPath() + "//Data//";
+//	m_data_path = dir.currentPath() + "//Data//";
+	m_data_path = "D:\\ColorConfig\\Data\\";
 	if (!dir.exists(m_data_path))
 	{
 		bool res = dir.mkpath(m_data_path);
@@ -93,7 +103,8 @@ ColorDetect::ColorDetect(QWidget *parent)
 	}
 
 
-	ifstream fin("area.ini");
+
+	ifstream fin("D:\\ColorConfig\\area.ini");
 
 	if (fin.fail())
 	{
@@ -188,7 +199,7 @@ ColorDetect::ColorDetect(QWidget *parent)
 	m_color_num = 0;
 	m_color[0] = Scalar(0, 0, 0);
 
-	ifstream fin_color("color.ini");
+	ifstream fin_color("D:\\ColorConfig\\color.ini");
 	if (fin_color.fail())
 	{
 		QMessageBox::information(NULL, "Title", QString::fromLocal8Bit("没有检测颜色配置文件!"));
@@ -238,7 +249,7 @@ ColorDetect::ColorDetect(QWidget *parent)
 
 	}
 
-	ifstream fin_time("time.ini");
+	ifstream fin_time("D:\\ColorConfig\\time.ini");
 	if (fin_time.fail())
 	{
 		QMessageBox::information(NULL, "Title", QString::fromLocal8Bit("没有检测时间配置文件!"));
@@ -256,7 +267,7 @@ ColorDetect::ColorDetect(QWidget *parent)
 
 	m_company = QString::fromLocal8Bit(" ");
 
-	ifstream fin_com("company.ini");
+	ifstream fin_com("D:\\ColorConfig\\company.ini");
 	if (fin_com.fail())
 	{
 		QMessageBox::information(NULL, "Title", QString::fromLocal8Bit("没有公司信息配置文件!"));
@@ -277,12 +288,12 @@ ColorDetect::ColorDetect(QWidget *parent)
 
 	m_th = CHECK_TH;
 
-	ui.area1_b->hide();
-	ui.area1_g->hide();
-	ui.area1_r->hide();
-	ui.area2_b->hide();
-	ui.area2_g->hide();
-	ui.area2_r->hide();
+	//ui.area1_b->hide();
+	//ui.area1_g->hide();
+	//ui.area1_r->hide();
+	//ui.area2_b->hide();
+	//ui.area2_g->hide();
+	//ui.area2_r->hide();
 	ui.label_28->hide();
 	ui.label_29->hide();
 	ui.label_30->hide();
@@ -349,21 +360,32 @@ ColorDetect::ColorDetect(QWidget *parent)
 
 	m_hCam = NULL;
 	MVInitLib();
+	m_live = 0;
+	ui.btn_close_cam->setText(QString::fromLocal8Bit("显示视频"));
 
 }
 
-ColorDetect::~ColorDetect()
+void ColorDetect::closeEvent(QCloseEvent *event)
 {
-
 	if (m_hCam != NULL)
 	{
 		MVCloseCam(m_hCam);
 	}
-
 	MVTerminateLib();
-
-
 }
+
+
+ColorDetect::~ColorDetect()
+{
+	
+	if (m_hCam != NULL)
+	{
+		MVCloseCam(m_hCam);
+	}
+	MVTerminateLib();
+}
+
+
 
 void ColorDetect::colorCorrect()
 {
@@ -382,6 +404,8 @@ void ColorDetect::setDetectNum1()
 	ui.btn_sel_color_5->setDisabled(true);
 	ui.btn_set_color_5->setStyleSheet("color:black;");
 	ui.btn_set_color_5->setDisabled(true);
+
+	ui.color_num->setText(QString::number(m_color_num));
 }
 
 void ColorDetect::setDetectNum2()
@@ -392,6 +416,8 @@ void ColorDetect::setDetectNum2()
 	ui.btn_sel_color_5->setDisabled(false);
 	ui.btn_set_color_5->setStyleSheet("color:yellow;");
 	ui.btn_set_color_5->setDisabled(false);
+
+	ui.color_num->setText(QString::number(m_color_num));
 }
 
 
@@ -413,7 +439,6 @@ void ColorDetect::setSelNum2()
 	ui.btn_sel2->setDisabled(false);
 	ui.btn_set_area2->setStyleSheet("color:yellow;");
 	ui.btn_set_area2->setDisabled(false);
-
 
 }
 
@@ -1002,7 +1027,7 @@ void ColorDetect::detect()
 void ColorDetect::setTime()
 {
 
-	ofstream fout("time.ini");
+	ofstream fout("D:\\ColorConfig\\time.ini");
 
 	m_time_inter = ui.time_inter->text().toInt();
 	m_time_total = ui.time_total->text().toInt();
@@ -1011,13 +1036,20 @@ void ColorDetect::setTime()
 
 	fout.close();
 
+	
+	interLabel->setText(QString::fromLocal8Bit("检测间隔(min)：") + QString::number(m_time_inter));
+//	ui.statusBar->addWidget(interLabel); //在状态栏添加此控件
+
+	totalLabel->setText(QString::fromLocal8Bit("终止时间(min)：") + QString::number(m_time_total));
+
 	QMessageBox::information(NULL, "Title", QString::fromLocal8Bit("时间设置成功"));
+
+
 }
 
 void ColorDetect::setColor()
 {
 	g_sel_flag = 0;
-
 
 
 	int r, g, b;
@@ -1029,6 +1061,10 @@ void ColorDetect::setColor()
 		g = ui.color_g->text().toInt();
 		b = ui.color_b->text().toInt();
 
+		m_color[g_color_index][2] = r;
+		m_color[g_color_index][1] = g;
+		m_color[g_color_index][0] = b;
+		m_pcolor[g_color_index].setColor(QPalette::Window, QColor(r, g, b));
 		ui.label_color->setPalette(m_pcolor[g_color_index]);
 		ui.btn_sel_color->setChecked(false);
 		break;
@@ -1037,6 +1073,11 @@ void ColorDetect::setColor()
 		g = ui.color_g_4->text().toInt();
 		b = ui.color_b_4->text().toInt();
 
+		m_color[g_color_index][2] = r;
+		m_color[g_color_index][1] = g;
+		m_color[g_color_index][0] = b;
+
+		m_pcolor[g_color_index].setColor(QPalette::Window, QColor(r, g, b));
 		ui.label_color_4->setPalette(m_pcolor[g_color_index]);
 		ui.btn_sel_color_4->setChecked(false);
 		break;
@@ -1045,6 +1086,12 @@ void ColorDetect::setColor()
 		r = ui.color_r_5->text().toInt();
 		g = ui.color_g_5->text().toInt();
 		b = ui.color_b_5->text().toInt();
+
+		m_color[g_color_index][2] = r;
+		m_color[g_color_index][1] = g;
+		m_color[g_color_index][0] = b;
+
+		m_pcolor[g_color_index].setColor(QPalette::Window, QColor(r, g, b));
 
 		ui.label_color_5->setPalette(m_pcolor[g_color_index]);
 		ui.btn_sel_color_5->setChecked(false);
@@ -1056,7 +1103,7 @@ void ColorDetect::setColor()
 	ui.btn_sel_color_5->setChecked(false);
 
 
-	ofstream fout("color.ini");
+	ofstream fout("D:\\ColorConfig\\color.ini");
 	fout << m_color_num << ' ';
 
 	for (int i = 0; i <= m_color_num; i++)
@@ -1080,6 +1127,9 @@ void ColorDetect::selColor()
 		g_color_index = 0;
 		ui.btn_sel_color_4->setChecked(false);
 		ui.btn_sel_color_5->setChecked(false);
+		ui.btn_set_color_4->setChecked(false);
+		ui.btn_set_color_5->setChecked(false);
+
 	}
 	else if (tb->objectName() == "btn_sel_color_4")
 	{
@@ -1087,12 +1137,16 @@ void ColorDetect::selColor()
 
 		ui.btn_sel_color->setChecked(false);
 		ui.btn_sel_color_5->setChecked(false);
+		ui.btn_set_color->setChecked(false);
+		ui.btn_set_color_5->setChecked(false);
 	}
 	else if (tb->objectName() == "btn_sel_color_5")
 	{
 		g_color_index = 2;
 		ui.btn_sel_color->setChecked(false);
 		ui.btn_sel_color_4->setChecked(false);
+		ui.btn_set_color->setChecked(false);
+		ui.btn_set_color_4->setChecked(false);
 	}
 
 
@@ -1140,7 +1194,7 @@ void ColorDetect::setArea1()
 	area[g_cur_shape].w = w;
 	area[g_cur_shape].h = h;
 
-	ofstream fout("area.ini");
+	ofstream fout("D:\\ColorConfig\\area.ini");
 
 	fout << g_shapeNum << ' ';
 	for (int i = 0; i < g_shapeNum; i++)
@@ -1171,7 +1225,7 @@ void ColorDetect::setArea2()
 	area[g_cur_shape].w = w;
 	area[g_cur_shape].h = h;
 
-	ofstream fout("area.ini");
+	ofstream fout("D:\\ColorConfig\\area.ini");
 
 	fout << g_shapeNum << ' ';
 	for (int i = 0; i < g_shapeNum; i++)
@@ -1400,7 +1454,7 @@ int __stdcall StreamCB(MV_IMAGE_INFO *pInfo, ULONG_PTR nUserVal)
 
 int ColorDetect::OnStreamCB(MV_IMAGE_INFO *pInfo)
 {
-
+	if (pInfo == NULL) return 0;
 
 	MVInfo2Image(m_hCam, pInfo, &m_image);
 	int w = m_image.GetWidth();
@@ -1412,15 +1466,6 @@ int ColorDetect::OnStreamCB(MV_IMAGE_INFO *pInfo)
 
 	QImage image = QImage((const uchar*)frame.data, frame.cols, frame.rows, QImage::Format_RGB888).rgbSwapped();
 	ui.label->setPixmap(QPixmap::fromImage(image));
-
-	//namedWindow("test");
-	//imshow("test", m_cvSrc);
-
-	/*int displayScale = 2;
-	int wImage = m_image.GetWidth() / displayScale;
-	int hImage = m_image.GetHeight() / displayScale;
-	QImage tImage = qt_pixmapFromWinHBITMAP(m_image.GetHBitmap()).scaled(wImage, hImage, Qt::KeepAspectRatio).toImage();
-	ui.label->setPixmap(QPixmap::fromImage(tImage));*/
 
 	return 0;
 }
@@ -1480,8 +1525,10 @@ void ColorDetect::OpenCameraClicked()
 	}
 
 	MVStartGrab(m_hCam, StreamCB, (ULONG_PTR)this);
-
-	MVSetBalanceWhiteAuto(m_hCam, BalanceWhiteAuto_Once);
+	m_live = 1;
+	ui.btn_close_cam->setText(QString::fromLocal8Bit("停止显示"));
+	ui.btn_open_cam->setEnabled(FALSE);
+	//MVSetBalanceWhiteAuto(m_hCam, BalanceWhiteAuto_Once);
 
 
 }
@@ -1489,11 +1536,25 @@ void ColorDetect::OpenCameraClicked()
 //关闭摄像头
 void ColorDetect::CloseCameraClicked()
 {
-	detect_timer->stop();
-	//timer->stop();//关闭定时器
-	//capture.release();//释放图像
 
-	MVStopGrab(m_hCam);
+	if (m_live)
+	{
+		if (g_detect_flag)
+		{
+			detect_timer->stop();
+			g_detect_flag = 0;
+		}
+	
+		MVStopGrab(m_hCam);
+		ui.btn_close_cam->setText(QString::fromLocal8Bit("显示视频"));
+	}
+	else
+	{
+		MVStartGrab(m_hCam, StreamCB, (ULONG_PTR)this);
+		ui.btn_close_cam->setText(QString::fromLocal8Bit("停止显示"));
+	}
+
+	m_live = !m_live;
 
 }
 
