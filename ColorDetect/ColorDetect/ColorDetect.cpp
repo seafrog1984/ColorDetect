@@ -49,7 +49,6 @@ ColorDetect::ColorDetect(QWidget *parent)
 
 	this->showMinimized();
 
-
 	//系统菜单
 	connect(ui.mainPage, &QAction::triggered, this, &ColorDetect::mainPage);
 	connect(ui.sysPara, &QAction::triggered, this, &ColorDetect::sysPara);
@@ -77,7 +76,8 @@ ColorDetect::ColorDetect(QWidget *parent)
 	connect(ui.btn_set_area2, SIGNAL(clicked()), this, SLOT(setArea2()));//设置区域2
 
 	//校准界面
-	connect(ui.btn_color_correct, SIGNAL(clicked()), this, SLOT(colorCorrect()));////设置检测1次颜色变化
+	connect(ui.btn_color_correct, SIGNAL(clicked()), this, SLOT(colorCorrect()));////设颜色校正
+	connect(ui.btn_color_correct_2, SIGNAL(clicked()), this, SLOT(whwiteBalance()));////白平衡
 	connect(ui.btn_detect1, SIGNAL(clicked()), this, SLOT(setDetectNum1()));////设置检测1次颜色变化
 	connect(ui.btn_detect2, SIGNAL(clicked()), this, SLOT(setDetectNum2()));////设置检测2次颜色变化
 	connect(ui.btn_sel_color, SIGNAL(clicked()), this, SLOT(selColor()));//选择颜色区域
@@ -102,6 +102,12 @@ ColorDetect::ColorDetect(QWidget *parent)
 		//		qDebug() << "新建目录是否成功" << res;
 	}
 
+	m_pic_path = "D:\\ColorConfig\\Pic\\";
+	if (!dir.exists(m_pic_path))
+	{
+		bool res = dir.mkpath(m_pic_path);
+		//		qDebug() << "新建目录是否成功" << res;
+	}
 
 
 	ifstream fin("D:\\ColorConfig\\area.ini");
@@ -227,6 +233,7 @@ ColorDetect::ColorDetect(QWidget *parent)
 	ui.label_color->setAutoFillBackground(true);
 	ui.label_color->setPalette(m_pcolor[0]);
 
+
 	ui.color_b_4->setText(QString::number(m_color[1][0]));
 	ui.color_g_4->setText(QString::number(m_color[1][1]));
 	ui.color_r_4->setText(QString::number(m_color[1][2]));
@@ -279,21 +286,21 @@ ColorDetect::ColorDetect(QWidget *parent)
 		fin_com >> company;
 		m_company = QString::fromLocal8Bit(company.data());
 
-		ui.title->setText(m_company);
-	
-
+		ui.title->setText("                          "+m_company);
+		ui.title->setAlignment(Qt::AlignLeft);
+		ui.title->setStyleSheet("background-image: url(:/ColorDetect/Header);color:yellow");
 	}
 	fin_time.close();
 
 
 	m_th = CHECK_TH;
 
-	//ui.area1_b->hide();
-	//ui.area1_g->hide();
-	//ui.area1_r->hide();
-	//ui.area2_b->hide();
-	//ui.area2_g->hide();
-	//ui.area2_r->hide();
+	ui.area1_b->hide();
+	ui.area1_g->hide();
+	ui.area1_r->hide();
+	ui.area2_b->hide();
+	ui.area2_g->hide();
+	ui.area2_r->hide();
 	ui.label_28->hide();
 	ui.label_29->hide();
 	ui.label_30->hide();
@@ -307,7 +314,7 @@ ColorDetect::ColorDetect(QWidget *parent)
 
 	statusBar();
 	currentTimeLabel = new QLabel; // 创建QLabel控件
-	currentTimeLabel->setStyleSheet("color:rgb(0,0,255);");
+	currentTimeLabel->setStyleSheet("color:rgb(255,255,255);");
 
 	ui.statusBar->addPermanentWidget(currentTimeLabel); //在状态栏添加此控件
 
@@ -315,7 +322,7 @@ ColorDetect::ColorDetect(QWidget *parent)
 	userLabel = new QLabel;
 	userLabel->setMinimumWidth(150);
 	userLabel->setAlignment(Qt::AlignCenter);
-	userLabel->setStyleSheet("color:rgb(0,0,255);");
+	userLabel->setStyleSheet("color:rgb(255,255,255);");
 	userLabel->setText(QString::fromLocal8Bit("操作员：") + g_user);
 	ui.statusBar->addWidget(userLabel); //在状态栏添加此控件
 
@@ -329,27 +336,27 @@ ColorDetect::ColorDetect(QWidget *parent)
 	stateLabel = new QLabel;
 	stateLabel->setMinimumWidth(100);
 	stateLabel->setAlignment(Qt::AlignCenter);
-	stateLabel->setStyleSheet("color:rgb(0,0,255);");
+	stateLabel->setStyleSheet("color:rgb(255,255,255);");
 	ui.statusBar->addWidget(stateLabel); //在状态栏添加此控件
 
 	detectLabel = new QLabel;
 	detectLabel->setMinimumWidth(80);
 	detectLabel->setAlignment(Qt::AlignCenter);
-	detectLabel->setStyleSheet("color:rgb(0,0,255);");
+	detectLabel->setStyleSheet("color:rgb(255,255,255);");
 	ui.statusBar->addWidget(detectLabel); //在状态栏添加此控件
 
 
 	interLabel = new QLabel;
 	interLabel->setMinimumWidth(150);
 	interLabel->setAlignment(Qt::AlignCenter);
-	interLabel->setStyleSheet("color:rgb(0,0,255);");
+	interLabel->setStyleSheet("color:rgb(255,255,255);");
 	interLabel->setText(QString::fromLocal8Bit("检测间隔(min)：") + QString::number(m_time_inter));
 	ui.statusBar->addWidget(interLabel); //在状态栏添加此控件
 
 	totalLabel = new QLabel;
 	totalLabel->setMinimumWidth(150);
 	totalLabel->setAlignment(Qt::AlignCenter);
-	totalLabel->setStyleSheet("color:rgb(0,0,255);");
+	totalLabel->setStyleSheet("color:rgb(255,255,255);");
 	totalLabel->setText(QString::fromLocal8Bit("终止时间(min)：") + QString::number(m_time_total));
 	ui.statusBar->addWidget(totalLabel); //在状态栏添加此控件
 
@@ -392,6 +399,15 @@ void ColorDetect::colorCorrect()
 	if (m_hCam != NULL)
 	{
 		MVSetColorCorrect(m_hCam, 1);
+	}
+
+}
+
+void ColorDetect::whiteBalance()
+{
+	if (m_hCam != NULL)
+	{
+		MVSetBalanceWhiteAuto(m_hCam, BalanceWhiteAuto_Once);
 	}
 
 }
@@ -605,6 +621,9 @@ void ColorDetect::check()
 
 void ColorDetect::detect()
 {
+	QTime startTime = QTime::currentTime();
+
+
 	if (m_color_num == 1)
 	{
 		if (g_start_flag)
@@ -613,6 +632,14 @@ void ColorDetect::detect()
 			QString timestr = current_time.toString("yyyy-MM-dd-hh-mm-ss"); //设置显示的格式
 			m_data_file = m_data_path + g_user+"#"+ timestr + ".txt";
 			m_result_file = m_data_path + g_user + "#" + timestr + ".dat";
+			m_pic_sub_path = m_pic_path + g_user + "#" + timestr + "//";
+			QDir dir;
+			if (!dir.exists(m_pic_sub_path))
+			{
+				bool res = dir.mkpath(m_pic_sub_path);
+				//		qDebug() << "新建目录是否成功" << res;
+			}
+		
 			g_start_flag = 0;
 
 			fstream fout(m_data_file.toStdString(), ios::app);
@@ -633,6 +660,11 @@ void ColorDetect::detect()
 			fout2.close();
 
 		}
+
+		m_pic_file = m_pic_sub_path + QString::number(m_cur_time) + ".jpg";
+
+		imwrite(m_pic_file.toStdString(), frame);
+
 
 		fstream fout(m_data_file.toStdString(), ios::app);
 		if (fout.fail())
@@ -811,6 +843,14 @@ void ColorDetect::detect()
 			QString timestr = current_time.toString("yyyy-MM-dd-hh-mm-ss"); //设置显示的格式
 			m_data_file = m_data_path + g_user + "#" + timestr + ".txt";
 			m_result_file = m_data_path + g_user + "#" + timestr + ".dat";
+			m_pic_sub_path = m_pic_path + g_user + "#" + timestr + "//";
+			QDir dir;
+			if (!dir.exists(m_pic_sub_path))
+			{
+				bool res = dir.mkpath(m_pic_sub_path);
+				//		qDebug() << "新建目录是否成功" << res;
+			}
+
 			g_start_flag = 0;
 
 			fstream fout(m_data_file.toStdString(), ios::app);
@@ -833,6 +873,10 @@ void ColorDetect::detect()
 			g_color_index = 1;
 
 		}
+
+		m_pic_file = m_pic_sub_path + QString::number(m_cur_time) + ".jpg";
+
+		imwrite(m_pic_file.toStdString(), frame);
 
 		fstream fout(m_data_file.toStdString(), ios::app);
 		if (fout.fail())
@@ -1020,7 +1064,10 @@ void ColorDetect::detect()
 		m_cur_time += m_time_inter;
 
 	}
-	
+	QTime stopTime = QTime::currentTime();
+	int elapsed = startTime.msecsTo(stopTime);
+
+//	QMessageBox::information(NULL, "Title", QString::number(elapsed));
 
 }
 

@@ -141,6 +141,7 @@ public:
     QToolButton *btn_detect1;
     QToolButton *btn_detect2;
     QPushButton *btn_color_correct;
+    QPushButton *btn_color_correct_2;
     QLabel *title;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
@@ -152,10 +153,16 @@ public:
             ColorDetectClass->setObjectName(QStringLiteral("ColorDetectClass"));
         ColorDetectClass->resize(1366, 700);
         ColorDetectClass->setStyleSheet(QLatin1String("QWidget#mainToolBar{\n"
-"background-color: rgb(192, 192, 192);\n"
-"border-width:3px;\n"
-"border-style: double;\n"
-"border-color:rgb(255,255,255);\n"
+"border-color: rgb(15, 21, 42);\n"
+"background-color: rgb(15, 21, 42);\n"
+"border-width:0px;\n"
+"border-style: solid;\n"
+"}\n"
+"QStatusBar{\n"
+"border-color: rgb(15, 21, 42);\n"
+"background-color: rgb(15, 21, 42);\n"
+"border:0px;\n"
+"color:white;\n"
 "}"));
         sysPara = new QAction(ColorDetectClass);
         sysPara->setObjectName(QStringLiteral("sysPara"));
@@ -192,74 +199,97 @@ public:
         centralWidget = new QWidget(ColorDetectClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         centralWidget->setStyleSheet(QLatin1String("QWidget#centralWidget{\n"
-"background-color: rgb(192, 192, 192);\n"
-"border-width:3px;\n"
-"border-style: double;\n"
-"border-color:rgb(255,255,255);\n"
+"border-color: rgb(15, 21, 42);\n"
+"background-color: rgb(15, 21, 42);\n"
+"border-width:0px;\n"
+"\n"
+"\n"
 "}\n"
 "QPushButton{\n"
+"background-color:  rgb(22,68, 117);\n"
 "background-image: url(:/ColorDetect/Bg);\n"
-"color:yellow;\n"
+"color:white;\n"
 "}\n"
 "QPushButton:pressed{\n"
+"background-color:  rgb(22,68, 117);\n"
 "background-image: url(:/ColorDetect/Bg-sel);\n"
-"color:yellow;\n"
+"color:white;\n"
 "}\n"
 "\n"
 "QToolButton{\n"
+"background-color:  rgb(22,68, 117);\n"
 "background-image: url(:/ColorDetect/Bg);\n"
-"color:yellow;\n"
+"color:white;\n"
 "}\n"
 "QToolButton:checked{\n"
+"background-color:  rgb(22,68, 117);\n"
 "background-image: url(:/ColorDetect/Bg-sel);\n"
-"color:yellow;\n"
-"}"));
+"color:white;\n"
+"}\n"
+"QGroupBox{\n"
+"background-color:rgb(22,68, 117);\n"
+"color:white;\n"
+"border:0px\n"
+"}\n"
+""));
         label = new MyLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(9, 100, 640, 480));
         label->setMinimumSize(QSize(640, 480));
         label->setMaximumSize(QSize(640, 480));
-        label->setStyleSheet(QStringLiteral("background-color: rgb(163, 163, 163);"));
+        label->setStyleSheet(QStringLiteral("background-color:  rgb(22,68, 117);"));
         stackedWidget = new QStackedWidget(centralWidget);
         stackedWidget->setObjectName(QStringLiteral("stackedWidget"));
         stackedWidget->setGeometry(QRect(660, 41, 500, 600));
+        stackedWidget->setStyleSheet(QStringLiteral(""));
         page_main = new QWidget();
         page_main->setObjectName(QStringLiteral("page_main"));
+        page_main->setStyleSheet(QLatin1String("\n"
+"QLineEdit{\n"
+"background-color: rgb(22,68, 117);\n"
+"color:white;\n"
+"border:0px\n"
+"}"));
         label_46 = new QLabel(page_main);
         label_46->setObjectName(QStringLiteral("label_46"));
         label_46->setGeometry(QRect(170, 30, 141, 41));
+        label_46->setStyleSheet(QStringLiteral("color:white;"));
         groupBox_6 = new QGroupBox(page_main);
         groupBox_6->setObjectName(QStringLiteral("groupBox_6"));
         groupBox_6->setGeometry(QRect(240, 130, 121, 100));
+        groupBox_6->setStyleSheet(QStringLiteral(""));
         label_area2 = new QLabel(groupBox_6);
         label_area2->setObjectName(QStringLiteral("label_area2"));
         label_area2->setGeometry(QRect(30, 30, 60, 60));
-        label_area2->setStyleSheet(QStringLiteral("border: 1px solid"));
+        label_area2->setStyleSheet(QStringLiteral(""));
         groupBox_5 = new QGroupBox(page_main);
         groupBox_5->setObjectName(QStringLiteral("groupBox_5"));
         groupBox_5->setGeometry(QRect(50, 130, 141, 100));
+        groupBox_5->setStyleSheet(QStringLiteral(""));
         label_area1 = new QLabel(groupBox_5);
         label_area1->setObjectName(QStringLiteral("label_area1"));
         label_area1->setGeometry(QRect(40, 30, 60, 60));
-        label_area1->setStyleSheet(QStringLiteral("border: 1px solid"));
+        label_area1->setStyleSheet(QStringLiteral(""));
         btn_stop = new QPushButton(page_main);
         btn_stop->setObjectName(QStringLiteral("btn_stop"));
-        btn_stop->setGeometry(QRect(230, 480, 127, 30));
+        btn_stop->setGeometry(QRect(230, 480, 127, 25));
         btn_start = new QPushButton(page_main);
         btn_start->setObjectName(QStringLiteral("btn_start"));
-        btn_start->setGeometry(QRect(230, 440, 127, 30));
+        btn_start->setGeometry(QRect(230, 440, 127, 25));
         btn_test = new QPushButton(page_main);
         btn_test->setObjectName(QStringLiteral("btn_test"));
         btn_test->setGeometry(QRect(310, 540, 1, 1));
         btn_close_cam = new QPushButton(page_main);
         btn_close_cam->setObjectName(QStringLiteral("btn_close_cam"));
-        btn_close_cam->setGeometry(QRect(70, 480, 127, 30));
+        btn_close_cam->setGeometry(QRect(70, 480, 127, 25));
         btn_open_cam = new QPushButton(page_main);
         btn_open_cam->setObjectName(QStringLiteral("btn_open_cam"));
-        btn_open_cam->setGeometry(QRect(70, 440, 127, 30));
+        btn_open_cam->setGeometry(QRect(70, 440, 127, 25));
         label_8 = new QLabel(page_main);
         label_8->setObjectName(QStringLiteral("label_8"));
         label_8->setGeometry(QRect(110, 290, 81, 20));
+        label_8->setStyleSheet(QLatin1String("color:white;\n"
+""));
         color_num = new QLineEdit(page_main);
         color_num->setObjectName(QStringLiteral("color_num"));
         color_num->setGeometry(QRect(210, 285, 113, 20));
@@ -267,6 +297,7 @@ public:
         label_9 = new QLabel(page_main);
         label_9->setObjectName(QStringLiteral("label_9"));
         label_9->setGeometry(QRect(100, 320, 101, 20));
+        label_9->setStyleSheet(QStringLiteral("color:white;"));
         detect_time1 = new QLineEdit(page_main);
         detect_time1->setObjectName(QStringLiteral("detect_time1"));
         detect_time1->setGeometry(QRect(210, 315, 113, 20));
@@ -274,6 +305,9 @@ public:
         label_10 = new QLabel(page_main);
         label_10->setObjectName(QStringLiteral("label_10"));
         label_10->setGeometry(QRect(100, 350, 111, 20));
+        label_10->setStyleSheet(QLatin1String("\n"
+"color:white;\n"
+""));
         detect_time2 = new QLineEdit(page_main);
         detect_time2->setObjectName(QStringLiteral("detect_time2"));
         detect_time2->setGeometry(QRect(210, 350, 113, 20));
@@ -295,7 +329,7 @@ public:
         label_30->setGeometry(QRect(150, 230, 16, 16));
         label_28 = new QLabel(page_main);
         label_28->setObjectName(QStringLiteral("label_28"));
-        label_28->setGeometry(QRect(90, 226, 21, 20));
+        label_28->setGeometry(QRect(90, 230, 21, 20));
         area2_r = new QLineEdit(page_main);
         area2_r->setObjectName(QStringLiteral("area2_r"));
         area2_r->setGeometry(QRect(270, 240, 31, 20));
@@ -317,12 +351,23 @@ public:
         stackedWidget->addWidget(page_main);
         page_sys = new QWidget();
         page_sys->setObjectName(QStringLiteral("page_sys"));
+        page_sys->setStyleSheet(QLatin1String("QLabel{\n"
+"background-color:rgb(22,68, 117);\n"
+"color:white;\n"
+"border:0px\n"
+"}\n"
+"QLineEdit{\n"
+"background-color: rgb(15, 21, 42);\n"
+"color:white;\n"
+"border:0px\n"
+"}\n"
+""));
         groupBox = new QGroupBox(page_sys);
         groupBox->setObjectName(QStringLiteral("groupBox"));
         groupBox->setGeometry(QRect(60, 280, 161, 201));
         btn_sel1 = new QToolButton(groupBox);
         btn_sel1->setObjectName(QStringLiteral("btn_sel1"));
-        btn_sel1->setGeometry(QRect(10, 20, 127, 30));
+        btn_sel1->setGeometry(QRect(10, 20, 127, 25));
         btn_sel1->setCheckable(true);
         btn_sel1->setAutoExclusive(true);
         label_2 = new QLabel(groupBox);
@@ -357,13 +402,13 @@ public:
         area1_w->setGeometry(QRect(40, 130, 31, 20));
         btn_set_area1 = new QToolButton(groupBox);
         btn_set_area1->setObjectName(QStringLiteral("btn_set_area1"));
-        btn_set_area1->setGeometry(QRect(10, 160, 127, 30));
+        btn_set_area1->setGeometry(QRect(10, 160, 127, 25));
         groupBox_2 = new QGroupBox(page_sys);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
         groupBox_2->setGeometry(QRect(280, 280, 151, 201));
         btn_sel2 = new QToolButton(groupBox_2);
         btn_sel2->setObjectName(QStringLiteral("btn_sel2"));
-        btn_sel2->setGeometry(QRect(10, 20, 127, 30));
+        btn_sel2->setGeometry(QRect(10, 20, 127, 25));
         btn_sel2->setCheckable(true);
         btn_sel2->setAutoExclusive(true);
         label_14 = new QLabel(groupBox_2);
@@ -395,7 +440,7 @@ public:
         area2_w->setGeometry(QRect(30, 130, 31, 20));
         btn_set_area2 = new QToolButton(groupBox_2);
         btn_set_area2->setObjectName(QStringLiteral("btn_set_area2"));
-        btn_set_area2->setGeometry(QRect(10, 160, 127, 30));
+        btn_set_area2->setGeometry(QRect(10, 160, 127, 25));
         label_18 = new QLabel(groupBox_2);
         label_18->setObjectName(QStringLiteral("label_18"));
         label_18->setGeometry(QRect(10, 130, 16, 16));
@@ -405,6 +450,7 @@ public:
         label_20 = new QLabel(groupBox_3);
         label_20->setObjectName(QStringLiteral("label_20"));
         label_20->setGeometry(QRect(20, 20, 111, 16));
+        label_20->setStyleSheet(QStringLiteral(""));
         time_inter = new QLineEdit(groupBox_3);
         time_inter->setObjectName(QStringLiteral("time_inter"));
         time_inter->setGeometry(QRect(20, 40, 71, 20));
@@ -422,25 +468,33 @@ public:
         label_23->setGeometry(QRect(20, 70, 111, 16));
         btn_set_time = new QToolButton(groupBox_3);
         btn_set_time->setObjectName(QStringLiteral("btn_set_time"));
-        btn_set_time->setGeometry(QRect(10, 120, 127, 30));
+        btn_set_time->setGeometry(QRect(10, 120, 127, 25));
         label_13 = new QLabel(page_sys);
         label_13->setObjectName(QStringLiteral("label_13"));
         label_13->setGeometry(QRect(120, 10, 271, 41));
+        label_13->setStyleSheet(QLatin1String("\n"
+"background-color: rgb(15, 21, 42);"));
         btn_sel_num1 = new QToolButton(page_sys);
         btn_sel_num1->setObjectName(QStringLiteral("btn_sel_num1"));
-        btn_sel_num1->setGeometry(QRect(290, 110, 127, 30));
+        btn_sel_num1->setGeometry(QRect(290, 110, 127, 25));
         btn_sel_num2 = new QToolButton(page_sys);
         btn_sel_num2->setObjectName(QStringLiteral("btn_sel_num2"));
-        btn_sel_num2->setGeometry(QRect(290, 170, 127, 30));
+        btn_sel_num2->setGeometry(QRect(290, 170, 127, 25));
         stackedWidget->addWidget(page_sys);
         page_color = new QWidget();
         page_color->setObjectName(QStringLiteral("page_color"));
+        page_color->setStyleSheet(QLatin1String("QLineEdit{\n"
+"background-color: rgb(15, 21, 42);\n"
+"color:white;\n"
+"border:0px\n"
+"}\n"
+""));
         groupBox_4 = new QGroupBox(page_color);
         groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
         groupBox_4->setGeometry(QRect(270, 90, 191, 151));
         btn_sel_color = new QToolButton(groupBox_4);
         btn_sel_color->setObjectName(QStringLiteral("btn_sel_color"));
-        btn_sel_color->setGeometry(QRect(20, 30, 90, 30));
+        btn_sel_color->setGeometry(QRect(20, 30, 90, 25));
         btn_sel_color->setCheckable(true);
         btn_sel_color->setAutoExclusive(true);
         label_25 = new QLabel(groupBox_4);
@@ -463,16 +517,17 @@ public:
         label_27->setGeometry(QRect(130, 70, 16, 16));
         btn_set_color = new QToolButton(groupBox_4);
         btn_set_color->setObjectName(QStringLiteral("btn_set_color"));
-        btn_set_color->setGeometry(QRect(30, 110, 127, 30));
+        btn_set_color->setGeometry(QRect(30, 110, 127, 25));
         label_color = new QLabel(groupBox_4);
         label_color->setObjectName(QStringLiteral("label_color"));
         label_color->setGeometry(QRect(130, 20, 30, 30));
+        label_color->setStyleSheet(QStringLiteral(""));
         groupBox_7 = new QGroupBox(page_color);
         groupBox_7->setObjectName(QStringLiteral("groupBox_7"));
         groupBox_7->setGeometry(QRect(40, 300, 191, 151));
         btn_sel_color_4 = new QToolButton(groupBox_7);
         btn_sel_color_4->setObjectName(QStringLiteral("btn_sel_color_4"));
-        btn_sel_color_4->setGeometry(QRect(30, 20, 90, 30));
+        btn_sel_color_4->setGeometry(QRect(30, 20, 90, 25));
         btn_sel_color_4->setCheckable(true);
         btn_sel_color_4->setAutoExclusive(true);
         label_40 = new QLabel(groupBox_7);
@@ -495,16 +550,17 @@ public:
         label_42->setGeometry(QRect(130, 70, 16, 16));
         btn_set_color_4 = new QToolButton(groupBox_7);
         btn_set_color_4->setObjectName(QStringLiteral("btn_set_color_4"));
-        btn_set_color_4->setGeometry(QRect(30, 110, 127, 30));
+        btn_set_color_4->setGeometry(QRect(30, 110, 127, 25));
         label_color_4 = new QLabel(groupBox_7);
         label_color_4->setObjectName(QStringLiteral("label_color_4"));
         label_color_4->setGeometry(QRect(130, 20, 30, 30));
+        label_color_4->setStyleSheet(QStringLiteral(""));
         groupBox_8 = new QGroupBox(page_color);
         groupBox_8->setObjectName(QStringLiteral("groupBox_8"));
         groupBox_8->setGeometry(QRect(270, 300, 191, 151));
         btn_sel_color_5 = new QToolButton(groupBox_8);
         btn_sel_color_5->setObjectName(QStringLiteral("btn_sel_color_5"));
-        btn_sel_color_5->setGeometry(QRect(20, 20, 90, 30));
+        btn_sel_color_5->setGeometry(QRect(20, 20, 90, 25));
         btn_sel_color_5->setCheckable(true);
         btn_sel_color_5->setAutoExclusive(true);
         label_43 = new QLabel(groupBox_8);
@@ -527,22 +583,28 @@ public:
         label_45->setGeometry(QRect(130, 70, 16, 16));
         btn_set_color_5 = new QToolButton(groupBox_8);
         btn_set_color_5->setObjectName(QStringLiteral("btn_set_color_5"));
-        btn_set_color_5->setGeometry(QRect(30, 110, 127, 30));
+        btn_set_color_5->setGeometry(QRect(30, 110, 127, 25));
         label_color_5 = new QLabel(groupBox_8);
         label_color_5->setObjectName(QStringLiteral("label_color_5"));
         label_color_5->setGeometry(QRect(130, 20, 30, 30));
+        label_color_5->setStyleSheet(QStringLiteral(""));
         label_24 = new QLabel(page_color);
         label_24->setObjectName(QStringLiteral("label_24"));
         label_24->setGeometry(QRect(200, 20, 81, 41));
+        label_24->setStyleSheet(QLatin1String("background-color: rgb(15, 21, 42);\n"
+"color:white"));
         btn_detect1 = new QToolButton(page_color);
         btn_detect1->setObjectName(QStringLiteral("btn_detect1"));
-        btn_detect1->setGeometry(QRect(70, 140, 127, 30));
+        btn_detect1->setGeometry(QRect(70, 170, 127, 25));
         btn_detect2 = new QToolButton(page_color);
         btn_detect2->setObjectName(QStringLiteral("btn_detect2"));
-        btn_detect2->setGeometry(QRect(70, 200, 127, 30));
+        btn_detect2->setGeometry(QRect(70, 210, 127, 25));
         btn_color_correct = new QPushButton(page_color);
         btn_color_correct->setObjectName(QStringLiteral("btn_color_correct"));
-        btn_color_correct->setGeometry(QRect(70, 90, 127, 30));
+        btn_color_correct->setGeometry(QRect(70, 90, 127, 25));
+        btn_color_correct_2 = new QPushButton(page_color);
+        btn_color_correct_2->setObjectName(QStringLiteral("btn_color_correct_2"));
+        btn_color_correct_2->setGeometry(QRect(70, 130, 127, 25));
         stackedWidget->addWidget(page_color);
         title = new QLabel(centralWidget);
         title->setObjectName(QStringLiteral("title"));
@@ -551,12 +613,14 @@ public:
         font.setFamily(QString::fromUtf8("\345\256\213\344\275\223"));
         font.setPointSize(14);
         title->setFont(font);
-        title->setStyleSheet(QStringLiteral("color: rgb(0, 85, 255);"));
+        title->setStyleSheet(QLatin1String("background-image: url(:/ColorDetect/Header);\n"
+"color:yellow;\n"
+""));
         title->setAlignment(Qt::AlignCenter);
         ColorDetectClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(ColorDetectClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1366, 26));
+        menuBar->setGeometry(QRect(0, 0, 1366, 23));
         ColorDetectClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(ColorDetectClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -679,6 +743,7 @@ public:
         btn_detect1->setText(QApplication::translate("ColorDetectClass", " \346\243\200\346\265\2131\346\254\241\351\242\234\350\211\262\345\217\230\345\214\226", 0));
         btn_detect2->setText(QApplication::translate("ColorDetectClass", " \346\243\200\346\265\2132\346\254\241\351\242\234\350\211\262\345\217\230\345\214\226", 0));
         btn_color_correct->setText(QApplication::translate("ColorDetectClass", "\347\233\270\346\234\272\351\242\234\350\211\262\346\240\241\346\255\243", 0));
+        btn_color_correct_2->setText(QApplication::translate("ColorDetectClass", "\347\231\275\345\271\263\350\241\241", 0));
         title->setText(QString());
     } // retranslateUi
 

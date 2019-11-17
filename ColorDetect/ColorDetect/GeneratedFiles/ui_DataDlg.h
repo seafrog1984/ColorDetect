@@ -56,11 +56,49 @@ public:
             DataDlg->setObjectName(QStringLiteral("DataDlg"));
         DataDlg->resize(910, 638);
         DataDlg->setStyleSheet(QLatin1String("QWidget#DataDlg{\n"
-"background-color: rgb(192, 192, 192);\n"
-"border-width:3px;\n"
-"border-style: double;\n"
-"border-color:rgb(255,255,255);\n"
-"}"));
+"border-color: rgb(15, 21, 42);\n"
+"background-color: rgb(15, 21, 42);\n"
+"border-width:0px;\n"
+"color:white;\n"
+"}\n"
+"QPushButton{\n"
+"background-color:  rgb(15, 21, 42);\n"
+"background-image: url(:/ColorDetect/Bg);\n"
+"color:white;\n"
+"}\n"
+"QPushButton:pressed{\n"
+"background-color:  rgb(22,68, 117);\n"
+"background-image: url(:/ColorDetect/Bg-sel);\n"
+"color:white;\n"
+"}\n"
+"\n"
+"QToolButton{\n"
+"background-color:  rgb(22,68, 117);\n"
+"background-image: url(:/ColorDetect/Bg);\n"
+"color:white;\n"
+"}\n"
+"QToolButton:checked{\n"
+"background-color:  rgb(22,68, 117);\n"
+"background-image: url(:/ColorDetect/Bg-sel);\n"
+"color:white;\n"
+"}\n"
+"QGroupBox{\n"
+"background-color:rgb(22,68, 117);\n"
+"color:white;\n"
+"border:0px\n"
+"}\n"
+"QLabel{\n"
+"background-color:rgb(22,68, 117);\n"
+"color:white;\n"
+"border:0px\n"
+"}\n"
+"QLineEdit{\n"
+"background-color: rgb(15, 21, 42);\n"
+"color:white;\n"
+"border:0px\n"
+"}\n"
+"\n"
+""));
         tableWidget = new QTableWidget(DataDlg);
         if (tableWidget->columnCount() < 3)
             tableWidget->setColumnCount(3);
@@ -131,6 +169,8 @@ public:
         user = new QLineEdit(groupBox_2);
         user->setObjectName(QStringLiteral("user"));
         user->setGeometry(QRect(70, 95, 113, 20));
+        user->setStyleSheet(QLatin1String("background-color: rgb(255, 255, 255);\n"
+"color: rgb(0, 0, 0);"));
         btn_user_sel = new QPushButton(groupBox_2);
         btn_user_sel->setObjectName(QStringLiteral("btn_user_sel"));
         btn_user_sel->setGeometry(QRect(240, 95, 61, 23));

@@ -10,5 +10,6 @@
         <file alias="Bg-sel">Resources/bg-sel.png</file>
         <file alias="Main">Resources/main.png</file>
         <file alias="Main-Sel">Resources/main-sel.png</file>
+        <file alias="Header">Resources/header.png</file>
     </qresource>
 </RCC>

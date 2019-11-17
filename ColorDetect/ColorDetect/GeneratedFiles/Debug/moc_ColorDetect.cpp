@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_ColorDetect_t {
-    QByteArrayData data[23];
-    char stringdata0[224];
+    QByteArrayData data[24];
+    char stringdata0[237];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -45,22 +45,23 @@ QT_MOC_LITERAL(12, 111, 10), // "setSelNum2"
 QT_MOC_LITERAL(13, 122, 8), // "setArea1"
 QT_MOC_LITERAL(14, 131, 8), // "setArea2"
 QT_MOC_LITERAL(15, 140, 12), // "colorCorrect"
-QT_MOC_LITERAL(16, 153, 13), // "setDetectNum1"
-QT_MOC_LITERAL(17, 167, 13), // "setDetectNum2"
-QT_MOC_LITERAL(18, 181, 8), // "selColor"
-QT_MOC_LITERAL(19, 190, 8), // "setColor"
-QT_MOC_LITERAL(20, 199, 7), // "setTime"
-QT_MOC_LITERAL(21, 207, 4), // "test"
-QT_MOC_LITERAL(22, 212, 11) // "time_update"
+QT_MOC_LITERAL(16, 153, 12), // "whiteBalance"
+QT_MOC_LITERAL(17, 166, 13), // "setDetectNum1"
+QT_MOC_LITERAL(18, 180, 13), // "setDetectNum2"
+QT_MOC_LITERAL(19, 194, 8), // "selColor"
+QT_MOC_LITERAL(20, 203, 8), // "setColor"
+QT_MOC_LITERAL(21, 212, 7), // "setTime"
+QT_MOC_LITERAL(22, 220, 4), // "test"
+QT_MOC_LITERAL(23, 225, 11) // "time_update"
 
     },
     "ColorDetect\0detect\0\0ReadFrame\0"
     "OpenCameraClicked\0CloseCameraClicked\0"
     "start\0stop\0updateShape\0sel1\0sel2\0"
     "setSelNum1\0setSelNum2\0setArea1\0setArea2\0"
-    "colorCorrect\0setDetectNum1\0setDetectNum2\0"
-    "selColor\0setColor\0setTime\0test\0"
-    "time_update"
+    "colorCorrect\0whiteBalance\0setDetectNum1\0"
+    "setDetectNum2\0selColor\0setColor\0setTime\0"
+    "test\0time_update"
 };
 #undef QT_MOC_LITERAL
 
@@ -70,7 +71,7 @@ static const uint qt_meta_data_ColorDetect[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      21,   14, // methods
+      22,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -78,29 +79,31 @@ static const uint qt_meta_data_ColorDetect[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,  119,    2, 0x08 /* Private */,
-       3,    0,  120,    2, 0x08 /* Private */,
-       4,    0,  121,    2, 0x08 /* Private */,
-       5,    0,  122,    2, 0x08 /* Private */,
-       6,    0,  123,    2, 0x08 /* Private */,
-       7,    0,  124,    2, 0x08 /* Private */,
-       8,    0,  125,    2, 0x08 /* Private */,
-       9,    0,  126,    2, 0x08 /* Private */,
-      10,    0,  127,    2, 0x08 /* Private */,
-      11,    0,  128,    2, 0x08 /* Private */,
-      12,    0,  129,    2, 0x08 /* Private */,
-      13,    0,  130,    2, 0x08 /* Private */,
-      14,    0,  131,    2, 0x08 /* Private */,
-      15,    0,  132,    2, 0x08 /* Private */,
-      16,    0,  133,    2, 0x08 /* Private */,
-      17,    0,  134,    2, 0x08 /* Private */,
-      18,    0,  135,    2, 0x08 /* Private */,
-      19,    0,  136,    2, 0x08 /* Private */,
-      20,    0,  137,    2, 0x08 /* Private */,
-      21,    0,  138,    2, 0x08 /* Private */,
-      22,    0,  139,    2, 0x08 /* Private */,
+       1,    0,  124,    2, 0x08 /* Private */,
+       3,    0,  125,    2, 0x08 /* Private */,
+       4,    0,  126,    2, 0x08 /* Private */,
+       5,    0,  127,    2, 0x08 /* Private */,
+       6,    0,  128,    2, 0x08 /* Private */,
+       7,    0,  129,    2, 0x08 /* Private */,
+       8,    0,  130,    2, 0x08 /* Private */,
+       9,    0,  131,    2, 0x08 /* Private */,
+      10,    0,  132,    2, 0x08 /* Private */,
+      11,    0,  133,    2, 0x08 /* Private */,
+      12,    0,  134,    2, 0x08 /* Private */,
+      13,    0,  135,    2, 0x08 /* Private */,
+      14,    0,  136,    2, 0x08 /* Private */,
+      15,    0,  137,    2, 0x08 /* Private */,
+      16,    0,  138,    2, 0x08 /* Private */,
+      17,    0,  139,    2, 0x08 /* Private */,
+      18,    0,  140,    2, 0x08 /* Private */,
+      19,    0,  141,    2, 0x08 /* Private */,
+      20,    0,  142,    2, 0x08 /* Private */,
+      21,    0,  143,    2, 0x08 /* Private */,
+      22,    0,  144,    2, 0x08 /* Private */,
+      23,    0,  145,    2, 0x08 /* Private */,
 
  // slots: parameters
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -146,13 +149,14 @@ void ColorDetect::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         case 11: _t->setArea1(); break;
         case 12: _t->setArea2(); break;
         case 13: _t->colorCorrect(); break;
-        case 14: _t->setDetectNum1(); break;
-        case 15: _t->setDetectNum2(); break;
-        case 16: _t->selColor(); break;
-        case 17: _t->setColor(); break;
-        case 18: _t->setTime(); break;
-        case 19: _t->test(); break;
-        case 20: _t->time_update(); break;
+        case 14: _t->whiteBalance(); break;
+        case 15: _t->setDetectNum1(); break;
+        case 16: _t->setDetectNum2(); break;
+        case 17: _t->selColor(); break;
+        case 18: _t->setColor(); break;
+        case 19: _t->setTime(); break;
+        case 20: _t->test(); break;
+        case 21: _t->time_update(); break;
         default: ;
         }
     }
@@ -184,13 +188,13 @@ int ColorDetect::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 21)
+        if (_id < 22)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 21;
+        _id -= 22;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 21)
+        if (_id < 22)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 21;
+        _id -= 22;
     }
     return _id;
 }

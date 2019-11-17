@@ -70,6 +70,9 @@ public:
 	int m_time_total;//检测终止时间min
 	int m_cur_time;//距离开始的时间min
 	QString m_data_path;//数据保存目录
+	QString m_pic_path;//图像保存目录
+	QString m_pic_sub_path;//单次检测图像保存目录
+	QString m_pic_file;//图像保存文件
 	QString m_data_file;//数据文件
 	QString m_result_file;//结果文件
 	QString m_company;//公司名称
@@ -121,6 +124,7 @@ private slots:
 	void setArea2();//设置区域2
 
 	void colorCorrect();//相机颜色校准
+	void whiteBalance();//白平衡
 	void setDetectNum1();//设置检测1次颜色变化
 	void setDetectNum2();//设置检测2次颜色变化
 	void selColor();//选择颜色区域
