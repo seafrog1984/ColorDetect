@@ -32,8 +32,8 @@ LogDlg::LogDlg(QWidget *parent)
 	readData(file1, m_udata, info.size());
 	file1.close();
 
-	ui.lineEdit_user->setText("admin");
-	ui.lineEdit_pw->setText("admin");
+	//ui.lineEdit_user->setText("test");
+	//ui.lineEdit_pw->setText("test");
 
 }
 

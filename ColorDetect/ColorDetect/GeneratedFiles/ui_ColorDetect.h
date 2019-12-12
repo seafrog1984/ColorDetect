@@ -648,7 +648,7 @@ public:
 
     void retranslateUi(QMainWindow *ColorDetectClass)
     {
-        ColorDetectClass->setWindowTitle(QApplication::translate("ColorDetectClass", "ColorDetect", 0));
+        ColorDetectClass->setWindowTitle(QApplication::translate("ColorDetectClass", "\350\257\225\347\272\270\351\242\234\350\211\262\346\243\200\346\265\213", 0));
         sysPara->setText(QApplication::translate("ColorDetectClass", "\345\217\202\346\225\260\350\256\276\347\275\256", 0));
 #ifndef QT_NO_TOOLTIP
         sysPara->setToolTip(QApplication::translate("ColorDetectClass", "\345\217\202\346\225\260\350\256\276\347\275\256", 0));
