@@ -278,7 +278,7 @@ public:
         btn_start->setGeometry(QRect(230, 440, 127, 25));
         btn_test = new QPushButton(page_main);
         btn_test->setObjectName(QStringLiteral("btn_test"));
-        btn_test->setGeometry(QRect(310, 540, 1, 1));
+        btn_test->setGeometry(QRect(70, 530, 127, 25));
         btn_close_cam = new QPushButton(page_main);
         btn_close_cam->setObjectName(QStringLiteral("btn_close_cam"));
         btn_close_cam->setGeometry(QRect(70, 480, 127, 25));
@@ -620,7 +620,7 @@ public:
         ColorDetectClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(ColorDetectClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1366, 23));
+        menuBar->setGeometry(QRect(0, 0, 1366, 26));
         ColorDetectClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(ColorDetectClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -673,7 +673,7 @@ public:
         label_area1->setText(QString());
         btn_stop->setText(QApplication::translate("ColorDetectClass", "\345\201\234\346\255\242\346\243\200\346\265\213", 0));
         btn_start->setText(QApplication::translate("ColorDetectClass", "\345\274\200\345\247\213\346\243\200\346\265\213", 0));
-        btn_test->setText(QApplication::translate("ColorDetectClass", "test", 0));
+        btn_test->setText(QApplication::translate("ColorDetectClass", "\345\257\274\345\205\245\350\247\206\351\242\221", 0));
         btn_test->setShortcut(QApplication::translate("ColorDetectClass", "Ctrl+T", 0));
         btn_close_cam->setText(QApplication::translate("ColorDetectClass", "\345\205\263\351\227\255\347\233\270\346\234\272", 0));
         btn_open_cam->setText(QApplication::translate("ColorDetectClass", "\346\211\223\345\274\200\347\233\270\346\234\272", 0));

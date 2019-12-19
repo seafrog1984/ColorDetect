@@ -225,14 +225,14 @@ border:0px
      <widget class="QPushButton" name="btn_test">
       <property name="geometry">
        <rect>
-        <x>310</x>
-        <y>540</y>
-        <width>1</width>
-        <height>1</height>
+        <x>70</x>
+        <y>530</y>
+        <width>127</width>
+        <height>25</height>
        </rect>
       </property>
       <property name="text">
-       <string>test</string>
+       <string>导入视频</string>
       </property>
       <property name="shortcut">
        <string>Ctrl+T</string>
@@ -1497,7 +1497,7 @@ color:yellow;
      <x>0</x>
      <y>0</y>
      <width>1366</width>
-     <height>23</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>
