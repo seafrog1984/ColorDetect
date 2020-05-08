@@ -20,6 +20,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSlider>
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
@@ -68,6 +69,11 @@ public:
     QLabel *label_31;
     QLineEdit *area2_g;
     QLineEdit *area2_b;
+    QPushButton *btn_play;
+    QSlider *horizontalSlider;
+    QLabel *slider_label;
+    QLabel *label_min;
+    QLabel *label_max;
     QWidget *page_sys;
     QGroupBox *groupBox;
     QToolButton *btn_sel1;
@@ -151,7 +157,7 @@ public:
     {
         if (ColorDetectClass->objectName().isEmpty())
             ColorDetectClass->setObjectName(QStringLiteral("ColorDetectClass"));
-        ColorDetectClass->resize(1366, 700);
+        ColorDetectClass->resize(1366, 716);
         ColorDetectClass->setStyleSheet(QLatin1String("QWidget#mainToolBar{\n"
 "border-color: rgb(15, 21, 42);\n"
 "background-color: rgb(15, 21, 42);\n"
@@ -249,7 +255,72 @@ public:
 "background-color: rgb(22,68, 117);\n"
 "color:white;\n"
 "border:0px\n"
-"}"));
+"}\n"
+"\n"
+"QSlider::groove:horizontal {\n"
+"border: 1px solid #4A708B;\n"
+"background: #C0C0C0;\n"
+"height: 5px;\n"
+"border-radius: 1px;\n"
+"padding-left:-1px;\n"
+"padding-right:-1px;\n"
+"}\n"
+"\n"
+"QSlider::sub-page:horizontal {\n"
+"background: qlineargradient(x1:0, y1:0, x2:0, y2:1, \n"
+"    stop:0 #B1B1B1, stop:1 #c4c4c4);\n"
+"background: qlineargradient(x1: 0, y1: 0.2, x2: 1, y2: 1,\n"
+"    stop: 0 #5DCCFF, stop: 1 #1874CD);\n"
+"border: 1px solid #4A708B;\n"
+"height: 10px;\n"
+"border-radius: 2px;\n"
+"}\n"
+"\n"
+"QSlider::add-page:horizontal {\n"
+"background: #575757;\n"
+"border: 0px solid #777;\n"
+"height: 10px;\n"
+"border-radius: 2px;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal \n"
+"{\n"
+"    background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, \n"
+"    stop:0.6 #45ADED, stop:0.778409 rgba(255, 255, 255, 255));\n"
+"\n"
+"    width: 11px;\n"
+"    margin-top: -3px;\n"
+"    margin-bottom: -3p"
+                        "x;\n"
+"    border-radius: 5px;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal:hover {\n"
+"    background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0.6 #2A8BDA, \n"
+"    stop:0.778409 rgba(255, 255, 255, 255));\n"
+"\n"
+"    width: 11px;\n"
+"    margin-top: -3px;\n"
+"    margin-bottom: -3px;\n"
+"    border-radius: 5px;\n"
+"}\n"
+"\n"
+"QSlider::sub-page:horizontal:disabled {\n"
+"background: #00009C;\n"
+"border-color: #999;\n"
+"}\n"
+"\n"
+"QSlider::add-page:horizontal:disabled {\n"
+"background: #eee;\n"
+"border-color: #999;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal:disabled {\n"
+"background: #eee;\n"
+"border: 1px solid #aaa;\n"
+"border-radius: 4px;\n"
+"}\n"
+""));
         label_46 = new QLabel(page_main);
         label_46->setObjectName(QStringLiteral("label_46"));
         label_46->setGeometry(QRect(170, 30, 141, 41));
@@ -272,19 +343,19 @@ public:
         label_area1->setStyleSheet(QStringLiteral(""));
         btn_stop = new QPushButton(page_main);
         btn_stop->setObjectName(QStringLiteral("btn_stop"));
-        btn_stop->setGeometry(QRect(230, 480, 127, 25));
+        btn_stop->setGeometry(QRect(230, 450, 127, 25));
         btn_start = new QPushButton(page_main);
         btn_start->setObjectName(QStringLiteral("btn_start"));
-        btn_start->setGeometry(QRect(230, 440, 127, 25));
+        btn_start->setGeometry(QRect(230, 410, 127, 25));
         btn_test = new QPushButton(page_main);
         btn_test->setObjectName(QStringLiteral("btn_test"));
-        btn_test->setGeometry(QRect(70, 530, 127, 25));
+        btn_test->setGeometry(QRect(70, 500, 127, 25));
         btn_close_cam = new QPushButton(page_main);
         btn_close_cam->setObjectName(QStringLiteral("btn_close_cam"));
-        btn_close_cam->setGeometry(QRect(70, 480, 127, 25));
+        btn_close_cam->setGeometry(QRect(70, 450, 127, 25));
         btn_open_cam = new QPushButton(page_main);
         btn_open_cam->setObjectName(QStringLiteral("btn_open_cam"));
-        btn_open_cam->setGeometry(QRect(70, 440, 127, 25));
+        btn_open_cam->setGeometry(QRect(70, 410, 127, 25));
         label_8 = new QLabel(page_main);
         label_8->setObjectName(QStringLiteral("label_8"));
         label_8->setGeometry(QRect(110, 290, 81, 20));
@@ -348,6 +419,25 @@ public:
         area2_b = new QLineEdit(page_main);
         area2_b->setObjectName(QStringLiteral("area2_b"));
         area2_b->setGeometry(QRect(390, 240, 31, 20));
+        btn_play = new QPushButton(page_main);
+        btn_play->setObjectName(QStringLiteral("btn_play"));
+        btn_play->setGeometry(QRect(230, 500, 127, 25));
+        horizontalSlider = new QSlider(page_main);
+        horizontalSlider->setObjectName(QStringLiteral("horizontalSlider"));
+        horizontalSlider->setGeometry(QRect(70, 550, 301, 22));
+        horizontalSlider->setOrientation(Qt::Horizontal);
+        slider_label = new QLabel(page_main);
+        slider_label->setObjectName(QStringLiteral("slider_label"));
+        slider_label->setGeometry(QRect(190, 580, 72, 15));
+        slider_label->setStyleSheet(QStringLiteral("color:white;"));
+        label_min = new QLabel(page_main);
+        label_min->setObjectName(QStringLiteral("label_min"));
+        label_min->setGeometry(QRect(30, 570, 41, 20));
+        label_min->setStyleSheet(QStringLiteral("color:white;"));
+        label_max = new QLabel(page_main);
+        label_max->setObjectName(QStringLiteral("label_max"));
+        label_max->setGeometry(QRect(370, 570, 41, 20));
+        label_max->setStyleSheet(QStringLiteral("color:white;"));
         stackedWidget->addWidget(page_main);
         page_sys = new QWidget();
         page_sys->setObjectName(QStringLiteral("page_sys"));
@@ -688,6 +778,11 @@ public:
         label_33->setText(QApplication::translate("ColorDetectClass", "B:", 0));
         label_31->setText(QApplication::translate("ColorDetectClass", "G:", 0));
         area2_b->setText(QString());
+        btn_play->setText(QApplication::translate("ColorDetectClass", "\346\232\202\345\201\234", 0));
+        btn_play->setShortcut(QApplication::translate("ColorDetectClass", "Ctrl+T", 0));
+        slider_label->setText(QApplication::translate("ColorDetectClass", "TextLabel", 0));
+        label_min->setText(QApplication::translate("ColorDetectClass", "TextLabel", 0));
+        label_max->setText(QApplication::translate("ColorDetectClass", "TextLabel", 0));
         groupBox->setTitle(QApplication::translate("ColorDetectClass", "\346\243\200\346\265\213\345\214\2721", 0));
         btn_sel1->setText(QApplication::translate("ColorDetectClass", "\346\243\200\346\265\213\345\214\2721\351\200\211\346\213\251", 0));
         label_2->setText(QApplication::translate("ColorDetectClass", "\350\265\267\345\247\213\347\202\271\345\235\220\346\240\207\357\274\232", 0));

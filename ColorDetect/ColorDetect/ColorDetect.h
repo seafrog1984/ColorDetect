@@ -94,6 +94,10 @@ public:
 	QLabel *interLabel;//显示间隔时间
 	QLabel *totalLabel;//显示终止时间
 
+	int m_play_flag;
+	double m_totalFrame;
+	double m_frameRate;
+	int m_controlRate;
 
 private:
 	Ui::ColorDetectClass ui;
@@ -105,6 +109,8 @@ private:
 
 private slots:
 
+	void controlVideo(int);//控制导入视频
+	void playPause();//控制导入视频
 	void detect();//检测函数
 	void ReadFrame();
 	void OpenCameraClicked();//打开相机

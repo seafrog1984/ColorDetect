@@ -64,6 +64,7 @@ ColorDetect::ColorDetect(QWidget *parent)
 	connect(ui.btn_close_cam, SIGNAL(clicked()), this, SLOT(CloseCameraClicked()));//关闭摄像头
 	connect(ui.btn_start, SIGNAL(clicked()), this, SLOT(start()));//打开摄像头
 	connect(ui.btn_stop, SIGNAL(clicked()), this, SLOT(stop()));//关闭摄像头
+	connect(ui.btn_play, SIGNAL(clicked()), this, SLOT(playPause()));//关闭摄像头
 
 	//系统设置页面
 	connect(ui.label, SIGNAL(updateShape()), this, SLOT(updateShape()));//更新选择区域
@@ -370,6 +371,20 @@ ColorDetect::ColorDetect(QWidget *parent)
 	m_live = 0;
 	ui.btn_close_cam->setText(QString::fromLocal8Bit("显示视频"));
 
+	ui.btn_play->setDisabled(true);
+
+	ui.horizontalSlider->setMinimum(0);
+	ui.horizontalSlider->setMaximum(100);
+
+	ui.horizontalSlider->setValue(0);
+	ui.label_min->setText(QString::number(0));
+	ui.label_max->setText(QString::number(100));
+	ui.slider_label->setText(QString::number(0));
+
+	connect(ui.horizontalSlider, SIGNAL(valueChanged(int)), this, SLOT(controlVideo(int)));
+
+	ui.horizontalSlider->setDisabled(true);
+
 }
 
 void ColorDetect::closeEvent(QCloseEvent *event)
@@ -392,7 +407,35 @@ ColorDetect::~ColorDetect()
 	MVTerminateLib();
 }
 
+void ColorDetect::controlVideo(int value)
+{
+	int pos = ui.horizontalSlider->value();
+//	QString str = QString::number(pos / 60) + ":" + QString::number(pos % 60);
+	
+	QString str = QString("%1:%2").arg(pos / 60).arg(pos % 60, 2, 10, QLatin1Char('0'));
 
+	m_controlRate = pos*m_frameRate < m_totalFrame ? pos*m_frameRate : m_totalFrame;
+	capture.set(CV_CAP_PROP_POS_FRAMES,m_controlRate );
+
+	ui.slider_label->setText(str);
+}
+
+void ColorDetect::playPause()
+{
+	if (m_play_flag == 0)
+	{	
+		timer->start(25);//开启定时器，一次25ms
+		m_play_flag = 1;
+		ui.btn_play->setText(QString::fromLocal8Bit("暂停"));
+	}
+	else
+	{
+		timer->stop();
+		m_play_flag = 0;
+		ui.btn_play->setText(QString::fromLocal8Bit("播放"));
+	}
+
+}
 
 void ColorDetect::colorCorrect()
 {
@@ -530,8 +573,23 @@ void ColorDetect::test()
 	path = t.data();
 
 	capture.open(path);
+
+	m_totalFrame = capture.get(CV_CAP_PROP_FRAME_COUNT);  //获取总帧数
+	m_frameRate = capture.get(CV_CAP_PROP_FPS);   //获取帧率
+	double pauseTime = 1000 / m_frameRate; // 由帧率计算两幅图像间隔时间
+
+	ui.horizontalSlider->setMaximum(m_totalFrame / m_frameRate);
+
+	int videoTime = (int)(m_totalFrame / m_frameRate);
+	QString str = QString("%1:%2").arg(videoTime / 60).arg(videoTime % 60, 2, 10, QLatin1Char('0'));
+
+	ui.label_max->setText(str);
 	
-	timer->start(25);//开启定时器，一次25ms
+	m_play_flag = 1;
+	m_controlRate = 0;
+	timer->start(pauseTime);//开启定时器，一次25ms
+	ui.btn_play->setDisabled(false);
+	ui.horizontalSlider->setDisabled(false);
 }
 
 void ColorDetect::search()
@@ -1480,6 +1538,11 @@ void ColorDetect::ReadFrame()
 {
 	//获取图像帧
 	capture >> frame;
+
+	if (frame.empty())
+	{
+		return;
+	}
 	/*
 	//将抓取到的帧,转换为QImage格式,QImage::Format_RGB888使用24位RGB格式（8-8-8）存储图像
 	//此时没有使用rgbSwapped()交换所有像素的红色和蓝色分量的值，底色偏蓝
@@ -1488,6 +1551,16 @@ void ColorDetect::ReadFrame()
 	ui->label->setPixmap(QPixmap::fromImage(image));
 	*/
 	//将视频显示到label上
+	m_controlRate++;
+	int t = (int)(m_controlRate / m_frameRate);
+
+//	QString str = QString::number(t / 60) + ":" + QString::number(t % 60);
+
+	QString str = QString("%1:%2").arg(t/60).arg(t%60, 2, 10, QLatin1Char('0'));
+
+	ui.slider_label->setText(str);
+
+	cv::resize(frame, frame, Size(IMAGE_WIDTH, IMAGE_HEIGHT));
 
 	QImage image = QImage((const uchar*)frame.data, frame.cols, frame.rows, QImage::Format_RGB888).rgbSwapped();
 	ui.label->setPixmap(QPixmap::fromImage(image));
